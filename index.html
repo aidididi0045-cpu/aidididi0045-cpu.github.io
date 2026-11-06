@@ -21,7 +21,7 @@
    16:9 cards that play on hover, a wavy header edge drawn with the same 3px pen. */
 :root{--white:#EAE1E2;--ink:#16093E;--navy:#16093E;--head:#0052C8;--red:#F22D26;--gray:#E2D6D8;--gray-2:#AE9EA6;--mark:#FCCD03;--pen:3px;--r:14px;--f-en:"Figtree","Noto Sans JP",system-ui,sans-serif;--f-jp:"Noto Sans JP","Hiragino Sans",system-ui,sans-serif;--f-tc:"JetBrains Mono",ui-monospace,Menlo,monospace;--ease:cubic-bezier(.22,1,.36,1);--wave:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 14'%3E%3Cpath d='M-22 0H66V7Q55 1 44 7Q33 13 22 7Q11 1 0 7Q-11 13 -22 7Z'/%3E%3C/svg%3E");--paper:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.25' numOctaves='2' seed='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .3 0 0 0 0 .26 0 0 0 0 .26 0 0 0 0.5 -0.18'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.25' numOctaves='2' seed='9' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.45 -0.162'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");--paper-l:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.25' numOctaves='2' seed='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.42 -0.151'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.25' numOctaves='2' seed='9' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.3 -0.108'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");--wave-line:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 14'%3E%3Cpath d='M-22 7Q-11 13 0 7Q11 1 22 7Q33 13 44 7Q55 1 66 7' fill='none' stroke='%2316093E' stroke-width='3'/%3E%3C/svg%3E");--pblue:#1E66D6;color-scheme:light}
 *{box-sizing:border-box}
-html{overflow-x:clip}
+html{overflow-x:clip;background:#16093E}
 body{background:var(--white);color:var(--ink);font-family:var(--f-jp);font-weight:500;font-size:15px;line-height:1.8;overflow-x:clip;touch-action:pan-y pinch-zoom}
 a{color:inherit;text-decoration:none}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;padding:0}
@@ -133,7 +133,9 @@ main{position:relative;z-index:2}
 .reel-play .tri{width:34px;height:34px;fill:var(--ink);margin-left:6px}
 @media (max-width:760px){
   .reel{height:72svh}
-  .hero-top{padding-left:28px;padding-right:28px}
+  .hero-top{padding-left:28px;padding-right:28px;padding-bottom:28px;row-gap:16px}
+  .roles{padding-bottom:0}
+  .reel{height:84svh}
   .reel{clip-path:inset(0 28px round 28px)}
   .hero h1{font-size:calc((100vw - 56px) / 7.6)}
 }
@@ -208,7 +210,7 @@ main{position:relative;z-index:2}
 .shared .hero,.shared .pickup,.shared .shorts-sec,.shared .profile,.shared #news,.shared #tabs,.shared .fav-wrap{display:none}
 /* ---------- Shorts strip ---------- */
 .shorts-sec{padding-top:120px}
-.shorts{position:relative;overflow:hidden;padding-block:28px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .7  0 0 0 0 .72  0 0 0 0 .95  .42 0 0 0 -.18'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),#120736;border-block:var(--pen) solid #120736}
+.shorts{position:relative;overflow:hidden;padding-block:28px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='1 0 0 0 -.432  1 0 0 0 -.5  1.05 0 0 0 -.285  0 0 0 0 1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),#16093E;border-block:var(--pen) solid #16093E}
 .shorts::before,.shorts::after{content:"";position:absolute;left:0;right:0;height:10px;background:repeating-linear-gradient(90deg,var(--white) 0 14px,transparent 14px 28px);opacity:.9;z-index:2}
 .shorts::before{top:8px}
 .shorts::after{bottom:8px}
@@ -332,13 +334,13 @@ main{background:none}
 /* header: the bar and its wavy edge are ONE glass shape — a single blurred layer, masked to "rectangle + wave".
    Over the dark first view it is clear glass with light text and no line; below it, yellow glass with the navy wave line. */
 body::before,body.at-fv::before{background:transparent}
-.hd{--ink:#16093E;--hg:rgba(253,180,0,.64);background:none;transition:color .35s}
+.hd{--ink:#16093E;--hg:rgba(252,155,0,.5);background:none;transition:color .35s}
 .hd .fav-pop{--ink:#16093E}
 .hd.noline{--ink:#F0E8E8}
 .hd::before{top:0;bottom:-13px;height:auto;z-index:-1;background:var(--hg);transition:background-color .35s;-webkit-backdrop-filter:var(--g-blur);backdrop-filter:var(--g-blur);-webkit-mask:linear-gradient(#000 0 0) 0 0/100% calc(100% - 14px) no-repeat,var(--wave) 0 100%/44px 14px repeat-x;mask:linear-gradient(#000 0 0) 0 0/100% calc(100% - 14px) no-repeat,var(--wave) 0 100%/44px 14px repeat-x}
 .hd-in{z-index:1}
-.hd::before{-webkit-backdrop-filter:blur(14px) sepia(1) saturate(420%) brightness(.97);backdrop-filter:blur(14px) sepia(1) saturate(420%) brightness(.97)}
-.hd.warp::before{backdrop-filter:url(#hdWarp) sepia(1) saturate(420%) brightness(.97)}
+.hd::before{-webkit-backdrop-filter:blur(14px) sepia(1) saturate(600%);backdrop-filter:blur(14px) sepia(1) saturate(600%)}
+.hd.warp::before{backdrop-filter:url(#hdWarp) sepia(1) saturate(600%)}
 /* a thin line of light riding the wavy edge, like the lip of a glass sheet */
 /* glass lip: the same mask as the pane, so the light sits exactly on the wavy edge.
    a crisp rim + a soft glow just inside it (thickness), a highlight along the top, and a faint broad reflection that drifts with scroll */
@@ -421,7 +423,7 @@ main{padding-top:0}
    ============================================================ */
 :root{--g-fill:var(--paper-l),linear-gradient(160deg,rgba(255,255,255,.55) 0%,rgba(255,255,255,.16) 52%,rgba(255,255,255,.24) 100%);--g-edge:rgba(255,255,255,.6);--g-rim:inset 0 1px 0 rgba(255,255,255,.95),inset 1px 0 0 rgba(255,255,255,.45),inset 0 -1px 0 rgba(22,9,62,.10),inset -1px 0 0 rgba(22,9,62,.05);--g-shadow:var(--g-rim),4px 10px 24px -14px rgba(22,9,62,.38)}
 /* buttons that were still solid now share the glass */
-.totop{background:var(--g-fill);-webkit-backdrop-filter:var(--g-blur);backdrop-filter:var(--g-blur);border:1px solid var(--g-edge);box-shadow:var(--g-shadow)}
+.totop{background:linear-gradient(160deg,rgba(255,255,255,.55) 0%,rgba(255,255,255,.16) 52%,rgba(255,255,255,.24) 100%);-webkit-backdrop-filter:var(--g-blur);backdrop-filter:var(--g-blur);border:1px solid var(--g-edge);box-shadow:var(--g-shadow)}
 .totop:hover,.circle-arw:hover,.news-list a:hover .circle-arw,.copy:hover,.pill:hover{background:var(--paper-l),linear-gradient(160deg,rgba(255,255,255,.85),rgba(255,255,255,.45));color:var(--ink)}
 .totop:hover svg,.news-list a:hover .circle-arw svg{stroke:var(--ink)}
 .news-list a:hover .circle-arw{transform:rotate(-45deg)}
@@ -431,14 +433,16 @@ main{padding-top:0}
 .prof-card{box-shadow:inset 0 1px 0 rgba(255,255,255,.7),inset 1px 0 0 rgba(255,255,255,.3),inset 0 -1px 0 rgba(0,20,80,.18),6px 24px 48px -20px rgba(0,25,90,.6)}
 .fav-pop{box-shadow:var(--g-shadow)}
 /* header over the dark first view: neutral clear glass (no saturation boost that turned the navy purple, no top highlight or sheen) */
-.hd.noline::before{-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px)}
+.hd.noline::before{-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);background:linear-gradient(rgba(255,255,255,.1),rgba(255,255,255,.1)),rgba(22,9,62,.58)}
 .hd.noline.warp::before{backdrop-filter:url(#hdWarp)}
 .hd.noline{--hg:rgba(22,9,62,.62)}
-.menu-btn{background:linear-gradient(160deg,rgba(255,255,255,.55) 0%,rgba(255,255,255,.16) 52%,rgba(255,255,255,.24) 100%)}
+.menu-btn,.copy{background:linear-gradient(160deg,rgba(255,255,255,.55) 0%,rgba(255,255,255,.16) 52%,rgba(255,255,255,.24) 100%)}
+.totop:hover,.copy:hover{background:linear-gradient(160deg,rgba(255,255,255,.85),rgba(255,255,255,.45))}
 .hd.noline::after{background-size:44px 14px,0 0,0 0,0 0!important;opacity:.6}
 /* keep the rest plain, so the glass stands out where it is used */
 .tabs .ind{background:rgba(255,255,255,.75);border:0;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none}
 .roles span{background:none;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none;border-color:rgba(255,255,255,.55)}
+@media (max-width:760px){ .hero-top{padding-top:calc(81px + 40px)} }
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
   .loader{display:none}
@@ -1024,7 +1028,7 @@ function leave(){
 const docTop = el => { let t=0; for(;el;el=el.offsetParent) t+=el.offsetTop; return t; };
 // it starts as a narrower window and stretches to the screen edges, while the picture inside eases back from a zoom,
 // so the frame visibly widens rather than just losing its margins
-gsap.timeline({scrollTrigger:{trigger:rf,start:0,end:()=>Math.max(innerWidth<=760?Math.round(innerHeight*.6):1,Math.round(docTop(rf)+rf.offsetHeight-innerHeight)),scrub:.4,invalidateOnRefresh:true}})
+gsap.timeline({scrollTrigger:{trigger:rf,start:0,end:()=>Math.max(1,Math.round(docTop(rf)+rf.offsetHeight-innerHeight)),scrub:.4,invalidateOnRefresh:true}})
   .fromTo(rf,{clipPath:reelRest},{clipPath:'inset(0px 0px 0px 0px round 0px)',ease:'power2.inOut',immediateRender:false},0)
   .fromTo('#cuts',{scaleX:1.22,scaleY:1.12},{scaleX:1,scaleY:1,ease:'power2.inOut'},0);
 gsap.to('#cuts',{yPercent:8,ease:'none',scrollTrigger:{trigger:rf,start:'top top',end:'bottom top',scrub:true}});
