@@ -22,7 +22,7 @@
 :root{--white:#F0E8E8;--ink:#16093E;--navy:#16093E;--head:#0052C8;--red:#F22D26;--gray:#E2D6D8;--gray-2:#AE9EA6;--mark:#FCCD03;--pen:3px;--r:14px;--f-en:"Figtree","Noto Sans JP",system-ui,sans-serif;--f-jp:"Noto Sans JP","Hiragino Sans",system-ui,sans-serif;--f-tc:"JetBrains Mono",ui-monospace,Menlo,monospace;--ease:cubic-bezier(.22,1,.36,1);--wave:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 14'%3E%3Cpath d='M-22 0H66V7Q55 1 44 7Q33 13 22 7Q11 1 0 7Q-11 13 -22 7Z'/%3E%3C/svg%3E");--paper:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.25' numOctaves='2' seed='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .3 0 0 0 0 .26 0 0 0 0 .26 0 0 0 0.5 -0.18'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.25' numOctaves='2' seed='9' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.45 -0.162'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");--paper-l:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.25' numOctaves='2' seed='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.42 -0.151'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.25' numOctaves='2' seed='9' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.3 -0.108'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");--wave-line:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 14'%3E%3Cpath d='M-22 7Q-11 13 0 7Q11 1 22 7Q33 13 44 7Q55 1 66 7' fill='none' stroke='%2316093E' stroke-width='3'/%3E%3C/svg%3E");--pblue:#1E66D6;color-scheme:light}
 *{box-sizing:border-box}
 html{overflow-x:clip}
-body{background:var(--paper),var(--white);color:var(--ink);font-family:var(--f-jp);font-weight:500;font-size:15px;line-height:1.8;overflow-x:clip;touch-action:pan-y pinch-zoom}
+body{background:var(--white);color:var(--ink);font-family:var(--f-jp);font-weight:500;font-size:15px;line-height:1.8;overflow-x:clip;touch-action:pan-y pinch-zoom}
 a{color:inherit;text-decoration:none}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;padding:0}
 :focus-visible{outline:3px solid var(--mark);outline-offset:3px;border-radius:8px}
@@ -205,7 +205,7 @@ main{position:relative;z-index:2}
 .shared .hero,.shared .pickup,.shared .shorts-sec,.shared .profile,.shared #news,.shared #tabs,.shared .fav-wrap{display:none}
 /* ---------- Shorts strip ---------- */
 .shorts-sec{padding-top:120px}
-.shorts{position:relative;overflow:hidden;padding-block:28px;background:var(--navy);border-block:var(--pen) solid var(--navy)}
+.shorts{position:relative;overflow:hidden;padding-block:28px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .7  0 0 0 0 .72  0 0 0 0 .95  .42 0 0 0 -.18'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),#120736;border-block:var(--pen) solid #120736}
 .shorts::before,.shorts::after{content:"";position:absolute;left:0;right:0;height:10px;background:repeating-linear-gradient(90deg,var(--white) 0 14px,transparent 14px 28px);opacity:.9;z-index:2}
 .shorts::before{top:8px}
 .shorts::after{bottom:8px}
@@ -324,17 +324,18 @@ main{position:relative;z-index:2}
    LIQUID GLASS layer — frosted, light-catching surfaces
    ============================================================ */
 :root{--g-blur:blur(18px) saturate(180%)}
-main{background:var(--paper)}
+main{background:none}
 .fav-pop,.pill,.copy,.sns-btn,.circle-arw,.reel-play,.tabs,.card .frame::after,.ctrl button,.p-close,.menu-btn,.shared-note,.share-box{background:var(--g-fill);-webkit-backdrop-filter:var(--g-blur);backdrop-filter:var(--g-blur);border:1px solid var(--g-edge);box-shadow:var(--g-shadow)}
 /* header: the bar and its wavy edge are ONE glass shape — a single blurred layer, masked to "rectangle + wave".
    Over the dark first view it is clear glass with light text and no line; below it, yellow glass with the navy wave line. */
 body::before,body.at-fv::before{background:transparent}
-.hd{--ink:#16093E;--hg:rgba(253,200,0,.86);background:none;transition:color .35s}
+.hd{--ink:#16093E;--hg:rgba(253,180,0,.64);background:none;transition:color .35s}
 .hd .fav-pop{--ink:#16093E}
 .hd.noline{--ink:#F0E8E8}
 .hd::before{top:0;bottom:-13px;height:auto;z-index:-1;background:var(--hg);transition:background-color .35s;-webkit-backdrop-filter:var(--g-blur);backdrop-filter:var(--g-blur);-webkit-mask:linear-gradient(#000 0 0) 0 0/100% calc(100% - 14px) no-repeat,var(--wave) 0 100%/44px 14px repeat-x;mask:linear-gradient(#000 0 0) 0 0/100% calc(100% - 14px) no-repeat,var(--wave) 0 100%/44px 14px repeat-x}
 .hd-in{z-index:1}
-.hd.warp::before{backdrop-filter:url(#hdWarp) saturate(180%)}
+.hd::before{-webkit-backdrop-filter:blur(14px) sepia(1) saturate(420%) brightness(.97);backdrop-filter:blur(14px) sepia(1) saturate(420%) brightness(.97)}
+.hd.warp::before{backdrop-filter:url(#hdWarp) sepia(1) saturate(420%) brightness(.97)}
 /* a thin line of light riding the wavy edge, like the lip of a glass sheet */
 /* glass lip: the same mask as the pane, so the light sits exactly on the wavy edge.
    a crisp rim + a soft glow just inside it (thickness), a highlight along the top, and a faint broad reflection that drifts with scroll */
@@ -394,8 +395,9 @@ main{padding-top:0}
 .glint{position:absolute;inset:-1px;border-radius:inherit;z-index:1;pointer-events:none;padding:1.5px;background:radial-gradient(70% 90% at var(--mx,30%) var(--my,0%),rgba(255,255,255,.95),rgba(255,255,255,.42) 45%,rgba(255,255,255,.2) 80%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0)}
 .prof-card{border-color:rgba(255,255,255,.18)}
 /* headings: navy outline; the sweep turns the letters from the cream background to white */
-.oh{background:linear-gradient(90deg,transparent 50%,var(--white) 50%) 100% 0/200% 100%,linear-gradient(#fff,#fff) 0 0/100% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-stroke-color:#fff;filter:none}
-.prof-card .oh{filter:none;background:linear-gradient(90deg,var(--ink) 50%,transparent 50%) 100% 0/200% 100%;-webkit-background-clip:text;background-clip:text}
+.oh{--ohf:#fff;--ohb:var(--white);background:none;-webkit-text-stroke-color:#fff;filter:none}
+.oh .c{background:linear-gradient(90deg,var(--ohf) 50%,var(--ohb) 50%) calc(100% - var(--t,0) * 100%) 0/200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent}
+.prof-card .oh{filter:none;background:none;--ohf:var(--ink);--ohb:transparent}
 /* thumbnails: a slight halation — light bleeding softly across the edge of the frame */
 .card .frame,.car-item .frame,.player .frame{box-shadow:0 0 14px 1px rgba(255,255,255,.55),0 0 34px rgba(255,196,176,.28)}
 .card .frame::before,.car-item .frame::before,.player .frame::before{content:"";position:absolute;inset:0;z-index:4;border-radius:inherit;pointer-events:none;box-shadow:inset 0 0 10px 1px rgba(255,255,255,.42),inset 0 0 28px rgba(255,200,180,.2)}
@@ -428,6 +430,7 @@ main{padding-top:0}
 .hd.noline::before{-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px)}
 .hd.noline.warp::before{backdrop-filter:url(#hdWarp)}
 .hd.noline{--hg:rgba(22,9,62,.62)}
+.menu-btn{background:linear-gradient(160deg,rgba(255,255,255,.55) 0%,rgba(255,255,255,.16) 52%,rgba(255,255,255,.24) 100%)}
 .hd.noline::after{background-size:44px 14px,0 0,0 0,0 0!important;opacity:.6}
 /* keep the rest plain, so the glass stands out where it is used */
 .tabs .ind{background:rgba(255,255,255,.75);border:0;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none}
@@ -435,7 +438,7 @@ main{padding-top:0}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
   .loader{display:none}
-  .oh{background-position:0 0}
+  .oh .c{--t:1}
 }
 </style>
 
@@ -1019,7 +1022,11 @@ ScrollTrigger.create({trigger:rf,start:'top bottom',end:'bottom top',onToggle:se
 // Outlined headings: letters jump in, ink fills as you scroll
 $$('.oh[data-split]').forEach(h=>{
   gsap.from(h.querySelectorAll('.c'),{yPercent:110,opacity:0,stagger:.04,duration:.8,ease:'back.out(2)',scrollTrigger:{trigger:h,start:'top 88%'}});
-  gsap.to(h,{backgroundPosition:h.closest('.prof-card')?'0% 0px':'0% 0px, 0px 0px',ease:'none',scrollTrigger:{trigger:h,start:'top 80%',end:'top 35%',scrub:.6}});
+  // the fill sweeps left→right across the word; each letter takes its own share of the sweep
+  const cs=[...h.querySelectorAll('.c')]; let box=[];
+  const measure=()=>{ const hr=h.getBoundingClientRect(); box=cs.map(c=>{ const r=c.getBoundingClientRect(); return [r.left-hr.left, r.width||1, hr.width||1]; }); };
+  ScrollTrigger.create({trigger:h,start:'top 80%',end:'top 35%',onRefresh:measure,onUpdate:st=>{ if(!box.length) measure(); const x=st.progress*box[0][2];
+    cs.forEach((c,i)=>{ const [l,w]=box[i]; c.style.setProperty('--t',Math.min(1,Math.max(0,(x-l)/w)).toFixed(3)); }); }});
 });
 $$('.sec-head .jp').forEach(j=>gsap.from(j,{x:-30,opacity:0,duration:.8,ease:'power3.out',scrollTrigger:{trigger:j,start:'top 90%'}}));
 gsap.from('.car-track',{opacity:0,duration:1,ease:'power2.out',scrollTrigger:{trigger:'.pickup',start:'top 75%'}});
