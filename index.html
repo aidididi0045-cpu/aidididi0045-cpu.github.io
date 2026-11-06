@@ -22,7 +22,7 @@
 :root{--white:#EAE1E2;--ink:#16093E;--navy:#16093E;--head:#0052C8;--red:#F22D26;--gray:#E2D6D8;--gray-2:#AE9EA6;--mark:#FCCD03;--pen:3px;--r:14px;--f-en:"Figtree","Noto Sans JP",system-ui,sans-serif;--f-jp:"Noto Sans JP","Hiragino Sans",system-ui,sans-serif;--f-tc:"JetBrains Mono",ui-monospace,Menlo,monospace;--ease:cubic-bezier(.22,1,.36,1);--wave:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 14'%3E%3Cpath d='M-22 0H66V7Q55 1 44 7Q33 13 22 7Q11 1 0 7Q-11 13 -22 7Z'/%3E%3C/svg%3E");--paper:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.25' numOctaves='2' seed='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .3 0 0 0 0 .26 0 0 0 0 .26 0 0 0 0.5 -0.18'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.25' numOctaves='2' seed='9' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.45 -0.162'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");--paper-l:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.25' numOctaves='2' seed='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.42 -0.151'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.25' numOctaves='2' seed='9' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.3 -0.108'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");--wave-line:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 14'%3E%3Cpath d='M-22 7Q-11 13 0 7Q11 1 22 7Q33 13 44 7Q55 1 66 7' fill='none' stroke='%2316093E' stroke-width='3'/%3E%3C/svg%3E");--pblue:#1E66D6;color-scheme:light}
 *{box-sizing:border-box}
 html{overflow-x:clip;background:#16093E}
-body{background:var(--white);color:var(--ink);font-family:var(--f-jp);font-weight:500;font-size:15px;line-height:1.8;overflow-x:clip;touch-action:pan-y pinch-zoom}
+body{background:transparent;color:var(--ink);font-family:var(--f-jp);font-weight:500;font-size:15px;line-height:1.8;overflow-x:clip;touch-action:pan-y pinch-zoom}
 a{color:inherit;text-decoration:none}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;padding:0}
 :focus-visible{outline:3px solid var(--mark);outline-offset:3px;border-radius:8px}
@@ -230,7 +230,7 @@ main{position:relative;z-index:2}
 .prof-card{position:relative;z-index:1;width:min(640px,calc(100% - 32px));margin:0 auto;padding:48px clamp(20px,5vw,56px) 52px;display:flex;flex-direction:column;align-items:center;gap:28px;text-align:center}
 .avatar{position:relative;width:clamp(130px,18vw,190px);aspect-ratio:1;border-radius:50%}
 .avatar>svg{position:absolute;inset:0;width:100%;height:100%;animation:spin 16s linear infinite}
-.avatar>svg circle{fill:none;stroke:var(--ink);stroke-width:2;stroke-dasharray:6 8}
+.avatar>svg circle{fill:none;stroke:var(--ink);stroke-width:2;stroke-dasharray:1.7 2.3}
 .avatar-img{position:absolute;inset:10px;width:calc(100% - 20px);height:calc(100% - 20px);max-width:none;border-radius:50%;object-fit:cover;border:var(--pen) solid var(--ink);transition:transform .6s var(--ease)}
 .avatar:hover .avatar-img{transform:rotate(-8deg) scale(1.04)}
 .prof-txt{display:flex;flex-direction:column;align-items:center;gap:14px;min-width:0}
@@ -329,12 +329,12 @@ main{position:relative;z-index:2}
    LIQUID GLASS layer — frosted, light-catching surfaces
    ============================================================ */
 :root{--g-blur:blur(18px) saturate(180%)}
-main{background:none}
+main{background:var(--white)}
 .fav-pop,.pill,.copy,.sns-btn,.circle-arw,.reel-play,.tabs,.card .frame::after,.ctrl button,.p-close,.menu-btn,.shared-note,.share-box{background:var(--g-fill);-webkit-backdrop-filter:var(--g-blur);backdrop-filter:var(--g-blur);border:1px solid var(--g-edge);box-shadow:var(--g-shadow)}
 /* header: the bar and its wavy edge are ONE glass shape — a single blurred layer, masked to "rectangle + wave".
    Over the dark first view it is clear glass with light text and no line; below it, yellow glass with the navy wave line. */
 body::before,body.at-fv::before{background:transparent}
-.hd{--ink:#16093E;--hg:rgba(252,155,0,.5);background:none;transition:color .35s}
+.hd{--ink:#16093E;--hg:rgba(252,174,0,.62);background:none;transition:color .35s}
 .hd .fav-pop{--ink:#16093E}
 .hd.noline{--ink:#F0E8E8}
 .hd::before{top:0;bottom:-13px;height:auto;z-index:-1;background:var(--hg);transition:background-color .35s;-webkit-backdrop-filter:var(--g-blur);backdrop-filter:var(--g-blur);-webkit-mask:linear-gradient(#000 0 0) 0 0/100% calc(100% - 14px) no-repeat,var(--wave) 0 100%/44px 14px repeat-x;mask:linear-gradient(#000 0 0) 0 0/100% calc(100% - 14px) no-repeat,var(--wave) 0 100%/44px 14px repeat-x}
@@ -363,8 +363,8 @@ main{padding-top:0}
 .pill,.copy{border-radius:999px}
 .pill:hover,.copy:hover{background:linear-gradient(135deg,rgba(255,255,255,.75),rgba(255,255,255,.35));color:var(--ink);transform:translateY(-2px)}
 .pill svg{fill:rgba(252,205,3,.9)}
-.sns-btn{border-width:1px;color:#fff;border-color:rgba(255,255,255,.55);background:linear-gradient(140deg,rgba(255,255,255,.07),rgba(255,255,255,0) 45%,rgba(255,255,255,.04)),var(--pblue)}
-.sns-btn:hover{background:linear-gradient(140deg,rgba(255,255,255,.22),rgba(255,255,255,.06)),var(--pblue);color:#fff}
+.sns-btn{border-width:1px;color:#fff;border-color:rgba(255,255,255,.3);background:linear-gradient(140deg,rgba(255,255,255,.1),rgba(255,255,255,0) 45%,rgba(255,255,255,.05));-webkit-backdrop-filter:saturate(130%);backdrop-filter:saturate(130%)}
+.sns-btn:hover{background:linear-gradient(140deg,rgba(255,255,255,.24),rgba(255,255,255,.06));color:#fff}
 .circle-arw{border-width:1px}
 .news-list a:hover .circle-arw{background:var(--ink)}
 .news-list a::after{background:linear-gradient(90deg,rgba(255,255,255,.55),rgba(255,255,255,.15));-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
@@ -429,14 +429,15 @@ main{padding-top:0}
 .news-list a:hover .circle-arw{transform:rotate(-45deg)}
 /* same light on the other glass surfaces */
 .card .frame::after{box-shadow:var(--g-rim),4px 10px 24px -12px rgba(0,0,0,.45)}
-.sns-btn{box-shadow:var(--g-rim),4px 10px 22px -10px rgba(0,25,90,.6)}
+.sns-btn{box-shadow:inset 0 1px 0 rgba(255,255,255,.7),inset 1px 0 0 rgba(255,255,255,.3),inset 0 -1px 0 rgba(0,20,80,.18),4px 12px 24px -12px rgba(0,25,90,.6)}
 .prof-card{box-shadow:inset 0 1px 0 rgba(255,255,255,.7),inset 1px 0 0 rgba(255,255,255,.3),inset 0 -1px 0 rgba(0,20,80,.18),6px 24px 48px -20px rgba(0,25,90,.6)}
 .fav-pop{box-shadow:var(--g-shadow)}
 /* header over the dark first view: neutral clear glass (no saturation boost that turned the navy purple, no top highlight or sheen) */
 .hd.noline::before{-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);background:linear-gradient(rgba(255,255,255,.1),rgba(255,255,255,.1)),rgba(22,9,62,.58)}
 .hd.noline.warp::before{backdrop-filter:url(#hdWarp)}
 .hd.noline{--hg:rgba(22,9,62,.62)}
-.menu-btn,.copy{background:linear-gradient(160deg,rgba(255,255,255,.55) 0%,rgba(255,255,255,.16) 52%,rgba(255,255,255,.24) 100%)}
+.copy{background:linear-gradient(160deg,rgba(255,255,255,.55) 0%,rgba(255,255,255,.16) 52%,rgba(255,255,255,.24) 100%)}
+.menu-btn{background:rgba(255,255,255,.16);box-shadow:none}
 .totop:hover,.copy:hover{background:linear-gradient(160deg,rgba(255,255,255,.85),rgba(255,255,255,.45))}
 .hd.noline::after{background-size:44px 14px,0 0,0 0,0 0!important;opacity:.6}
 /* keep the rest plain, so the glass stands out where it is used */
@@ -541,7 +542,7 @@ main{padding-top:0}
           <div class="glint" aria-hidden="true"></div>
           <h2 class="oh" data-split>Profile</h2>
           <div class="avatar">
-            <svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="48"/></svg>
+            <svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="48" pathLength="96"/></svg>
             <img class="avatar-img" src="avatar.webp" loading="lazy" decoding="async" alt="DiDiのプロフィール画像">
           </div>
           <div class="prof-txt">
@@ -1018,9 +1019,9 @@ function leave(){
     .from('.roles',{y:24,opacity:0,duration:.8,ease:'power3.out'},'-=.7')
     // the reel shoots up past full size once, then glides into place
     .fromTo(rf,{yPercent:55,scaleX:.42,scaleY:.3,transformOrigin:'50% 100%'},{keyframes:[
-        {yPercent:-3,scaleX:1.07,scaleY:1.07,duration:.55,ease:'expo.out'},
-        {yPercent:0,scaleX:1,scaleY:1,duration:1.1,ease:'power2.inOut'}],immediateRender:true},'-=.8')
-    .from('#reelPlay',{scale:0,rotate:-180,duration:.9,ease:'back.out(1.8)'},'-=.5')
+        {yPercent:-2,scaleX:1.05,scaleY:1.05,duration:.38,ease:'expo.out'},
+        {yPercent:0,scaleX:1,scaleY:1,duration:.55,ease:'power3.out'}],immediateRender:true},'-=.75')
+    .from('#reelPlay',{scale:0,rotate:-180,duration:.7,ease:'back.out(1.8)'},'-=.35')
     .add(()=>go(PN));
 }
 
