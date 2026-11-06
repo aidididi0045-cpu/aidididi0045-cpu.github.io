@@ -334,7 +334,7 @@ main{background:var(--white)}
 /* header: the bar and its wavy edge are ONE glass shape — a single blurred layer, masked to "rectangle + wave".
    Over the dark first view it is clear glass with light text and no line; below it, yellow glass with the navy wave line. */
 body::before,body.at-fv::before{background:transparent}
-.hd{--ink:#16093E;--hg:rgba(252,178,0,.54);background:none;transition:color .35s}
+.hd{--ink:#16093E;--hg:rgba(252,176,0,.59);background:none;transition:color .35s}
 .hd .fav-pop{--ink:#16093E}
 .hd.noline{--ink:#F0E8E8}
 .hd::before{top:0;bottom:-13px;height:auto;z-index:-1;background:var(--hg);transition:background-color .35s;-webkit-backdrop-filter:var(--g-blur);backdrop-filter:var(--g-blur);-webkit-mask:linear-gradient(#000 0 0) 0 0/100% calc(100% - 14px) no-repeat,var(--wave) 0 100%/44px 14px repeat-x;mask:linear-gradient(#000 0 0) 0 0/100% calc(100% - 14px) no-repeat,var(--wave) 0 100%/44px 14px repeat-x}
@@ -400,7 +400,7 @@ main{padding-top:0}
 .glint{position:absolute;inset:-1px;border-radius:inherit;z-index:1;pointer-events:none;padding:1.5px;background:radial-gradient(70% 90% at var(--mx,30%) var(--my,0%),rgba(255,255,255,.95),rgba(255,255,255,.42) 45%,rgba(255,255,255,.2) 80%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0)}
 .prof-card{border-color:rgba(255,255,255,.18)}
 /* headings: navy outline; the sweep turns the letters from the cream background to white */
-.oh{--ohf:#fff;--ohb:var(--white);background:none;-webkit-text-stroke-color:#fff;filter:drop-shadow(0 2px 4px #CDBFC1)}
+.oh{--ohf:#fff;--ohb:var(--white);background:none;-webkit-text-stroke-color:#fff;filter:drop-shadow(0 2px 4px rgba(205,191,193,.6))}
 .oh .c{background:linear-gradient(90deg,var(--ohf) 50%,var(--ohb) 50%) calc(100% - var(--t,0) * 100%) 0/200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent}
 .prof-card .oh{filter:drop-shadow(0 2px 4px rgba(0,20,80,.25));background:none;--ohf:var(--ink);--ohb:transparent}
 /* thumbnails: a slight halation — light bleeding softly across the edge of the frame */
