@@ -115,7 +115,7 @@ main{position:relative;z-index:2}
 .hero{position:relative;background:var(--navy)}
 .hero-top{--ink:#F0E8E8;color:var(--ink);display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;padding-block:40px 28px}
 .hero h1{position:relative;font-family:var(--f-en);font-weight:900;font-size:min(140px,9.5vw,calc((100vw - 2 * max(5vw,16px)) / 8.8));line-height:.9;letter-spacing:.01em;margin:0;text-transform:uppercase}
-.hero h1 .ln{display:block;overflow:hidden;padding-bottom:.04em}
+.hero h1 .ln{display:block;overflow:hidden;padding-bottom:.04em;white-space:nowrap}
 .hero h1 .ln span{display:inline-block}
 .hero h1 .bl{display:inline-block;width:0;height:0;vertical-align:baseline}
 .hero h1.masked .ln>span{color:transparent}
@@ -718,7 +718,7 @@ cutTo(0); if(!RM) cutTimer=setTimeout(nextCut,2600);
   const fit=()=>{ h1.style.fontSize=''; if(innerWidth>760) return;
     const cs=getComputedStyle(top), avail=top.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight);
     const w=Math.max(...[...h1.querySelectorAll('.ln>span')].map(x=>x.getBoundingClientRect().width)); if(!w||!avail) return;
-    h1.style.fontSize=(parseFloat(getComputedStyle(h1).fontSize)*avail/w).toFixed(2)+'px'; };
+    h1.style.fontSize=(parseFloat(getComputedStyle(h1).fontSize)*avail*.995/w).toFixed(2)+'px'; };
   fit(); addEventListener('resize',fit); document.fonts&&document.fonts.ready.then(fit); }
 
 /* Headline filled with the (blurred, whitened) reel */
