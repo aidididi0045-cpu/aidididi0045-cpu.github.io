@@ -135,7 +135,7 @@ main{position:relative;z-index:2}
   .reel{height:72svh}
   .hero-top{padding-left:28px;padding-right:28px}
   .reel{clip-path:inset(0 28px round 28px)}
-  .hero h1{font-size:calc((100vw - 16px - 56px) / 7.98)}
+  .hero h1{font-size:calc((100vw - 56px) / 7.6)}
 }
 @media (max-width:640px){
   .reel-play{width:110px;height:110px;margin:-55px 0 0 -55px}
@@ -708,6 +708,14 @@ const nextCut = () => { if(!reelLive) return; cutTo(Math.floor(Math.random()*cut
 const setReelLive = on => { if(on===reelLive) return; reelLive=on; clearTimeout(cutTimer); if(on){ play(cuts[cutIdx].querySelector('.screen')); cutTimer=setTimeout(nextCut,1200); } else stop(cuts[cutIdx].querySelector('.screen')); };
 { const v0=load(cuts[0].querySelector('video')); if(v0){ v0.preload='auto'; } }
 cutTo(0); if(!RM) cutTimer=setTimeout(nextCut,2600);
+
+/* Phones: size the headline so its longest line spans exactly the reel's width */
+{ const h1=$('#heroTitle'), top=$('.hero-top');
+  const fit=()=>{ h1.style.fontSize=''; if(innerWidth>760) return;
+    const cs=getComputedStyle(top), avail=top.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight);
+    const w=Math.max(...[...h1.querySelectorAll('.ln>span')].map(x=>x.getBoundingClientRect().width)); if(!w||!avail) return;
+    h1.style.fontSize=(parseFloat(getComputedStyle(h1).fontSize)*avail/w).toFixed(2)+'px'; };
+  fit(); addEventListener('resize',fit); document.fonts&&document.fonts.ready.then(fit); }
 
 /* Headline filled with the (blurred, whitened) reel */
 { const h1=$('#heroTitle'), cv=$('#h1Mask'), ctx=cv.getContext('2d'), lines=[...h1.querySelectorAll('.ln')];
