@@ -641,6 +641,7 @@ main{padding-top:0}
    CONTENT — edit here
    full:  に本編MP4のURL（Cloudflare R2）を入れると、クリック時のプレイヤーで本編（音あり）が流れます
    vimeo: Vimeo の URL でも可（full が優先）
+   yt:    YouTube の動画ID（youtu.be/〇〇 の〇〇）でも可
    src が空の作品は、一覧ではポスター画像だけを表示します
    ============================================================ */
 const R2 = 'https://pub-220729d1224749d9882c0ed0e24d5dbe.r2.dev/';
@@ -652,6 +653,7 @@ const works = [
   {t:'KUNG FU GIRL',  type:'3D風アニメーション', role:'アニメーション', client:'オリジナル', y:2026, dur:24, src:'kungfu-loop.mp4',  poster:'kungfu.jpg',  full:R2+'kungfu-girl.mp4'},
   {t:'CASTE OF THE DEAD', type:'MV', role:'映像制作', client:'オリジナル', y:2026, dur:178, src:'', poster:'caste.jpg', full:R2+'caste-of-the-dead.mp4'},
   {t:'冬のカフェにて', type:'2Dアニメーション', role:'アニメーション', client:'オリジナル', y:2026, dur:29, src:'', poster:'wintercafe.jpg', full:R2+'winter-cafe.mp4'},
+  {t:'魔法少女マジカル☆リベンジ', type:'3D風アニメーション', role:'アニメーション', client:'オリジナル', y:2026, dur:0, src:'', poster:'magical.webp', yt:'SLK2-aWp9uY'},
 ];
 const pickIdx = [0,1,2,3,4];            // works shown in PICK UP (by index)
 // wide:true = 横型のまま帯に並ぶ
@@ -687,7 +689,7 @@ const STAR = '<svg viewBox="0 0 24 24"><path d="M12 20.6C7.6 17.6 2.6 13.8 2.6 9
 const screen = (o,i=0) => `<div class="screen v${i%3}">${o.src
   ? `<video${o.poster?` poster="${o.poster}"`:''} muted loop playsinline webkit-playsinline preload="none">${o.webm?`<source data-src="${o.webm}" type='video/webm; codecs="vp9"'>`:''}<source data-src="${o.src}" type="video/mp4"></video>`
   : o.poster ? `<img src="${o.poster}" alt="" loading="lazy" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">` : ''}</div>`;
-const metaHTML = w => [['TYPE',typeLabel(w.type)],['CLIENT',w.client],['ROLE',w.role],['YEAR',w.y],['LENGTH',mmss(w.dur)]].map(([k,v])=>`<div><dt>${k}</dt><dd>${v}</dd></div>`).join('');
+const metaHTML = w => [['TYPE',typeLabel(w.type)],['CLIENT',w.client],['ROLE',w.role],['YEAR',w.y],['LENGTH',w.dur?mmss(w.dur):'']].filter(([,v])=>v!=='').map(([k,v])=>`<div><dt>${k}</dt><dd>${v}</dd></div>`).join('');
 let tt; const toast = m => { const t=$('#toast'); t.textContent=m; t.classList.add('on'); clearTimeout(tt); tt=setTimeout(()=>t.classList.remove('on'),2000); };
 const copyText = (text, sel, ok) => { const fb=()=>{ const r=document.createRange(); r.selectNodeContents(sel); const s=getSelection(); s.removeAllRanges(); s.addRange(r); toast('選択しました。コピーしてください'); };
   try{ navigator.clipboard.writeText(text).then(()=>toast(ok),fb); }catch(e){ fb(); } };
@@ -902,10 +904,10 @@ const vimeoSrc = u => { const m=String(u||'').match(/vimeo\.com\/(?:video\/)?(\d
   return m ? `https://player.vimeo.com/video/${m[1]}?autoplay=1&title=0&byline=0&portrait=0&dnt=1${m[2]?`&h=${m[2]}`:''}` : ''; };
 const setIcon = on => { $('#picon').innerHTML = on ? '<path d="M2 1h3v10H2zM7 1h3v10H7z"/>' : '<path d="M2 1l9 5-9 5z"/>'; $('#ptoggle').setAttribute('aria-label',on?'一時停止':'再生'); };
 function openPlayer(w, vertical){
-  const vsrc=w.full?'':vimeoSrc(w.vimeo);
+  const vsrc=w.full?'':w.yt?`https://www.youtube-nocookie.com/embed/${w.yt}?autoplay=1&rel=0&playsinline=1&modestbranding=1`:vimeoSrc(w.vimeo);
   player.classList.toggle('vertical',!!vertical); player.classList.toggle('vimeo',!!vsrc);
   pframe.innerHTML = w.full ? `<div class="screen"><video src="${w.full}"${w.poster?` poster="${w.poster}"`:''} playsinline webkit-playsinline preload="auto"></video></div>`
-    : vsrc ? `<iframe src="${vsrc}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="${w.t}"></iframe>` : screen(w);
+    : vsrc ? `<iframe src="${vsrc}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" title="${w.t}"></iframe>` : screen(w);
   pv = vsrc ? null : w.full ? pframe.querySelector('video') : load(pframe.querySelector('video'));
   if(w.full){ pv.addEventListener('ended',()=>setIcon(false));
     // where the full film can't be fetched (e.g. inside the claude.ai preview), fall back to the loop clip
