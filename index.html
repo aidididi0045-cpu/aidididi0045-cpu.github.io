@@ -654,6 +654,7 @@ const works = [
   {t:'CASTE OF THE DEAD', type:'MV', role:'映像制作', client:'オリジナル', y:2026, dur:178, src:'', poster:'caste.jpg', full:R2+'caste-of-the-dead.mp4'},
   {t:'冬のカフェにて', type:'2Dアニメーション', role:'アニメーション', client:'オリジナル', y:2026, dur:29, src:'', poster:'wintercafe.jpg', full:R2+'winter-cafe.mp4'},
   {t:'魔法少女マジカル☆リベンジ', type:'3D風アニメーション', role:'アニメーション', client:'オリジナル', y:2026, dur:0, src:'', poster:'magical.webp', yt:'SLK2-aWp9uY'},
+  {t:'君がメロかわいい！', type:'2Dアニメーション MV', role:'アニメーション', client:'オリジナル', y:2026, dur:0, src:'', poster:'melo.webp', yt:'ROkF3HWV6WA'},
 ];
 const pickIdx = [0,1,2,3,4];            // works shown in PICK UP (by index)
 // wide:true = 横型のまま帯に並ぶ
@@ -672,7 +673,8 @@ const news = [
 ];
 const TABS = [['all','All'],['CM','CM'],['MV','MV'],['モーショングラフィックス','Motion Graphics'],['2Dアニメーション','2D Animation'],['3D風アニメーション','3D Style'],['実写風','Live-action Style'],['fav','Favorite']];
 // English label for a work's type, using the same names as the Work tabs
-const typeLabel = t => (TABS.find(([k])=>k!=='all'&&k!=='fav'&&(t===k||(k==='MV'&&t.includes('MV'))))||[0,t])[1];
+const typeMatch = (t,k) => t===k || t.split(/\s+/).includes(k) || (k==='MV' && t.includes('MV'));
+const typeLabel = t => { const ls=TABS.filter(([k])=>k!=='all'&&k!=='fav'&&typeMatch(t,k)).map(x=>x[1]); return ls.length?ls.join(' / '):t; };
 const ARTIFACT_URL = /claude/.test(location.hostname) ? 'https://claude.ai/artifact/HYrFat2PdDNchsoUSCvqhB' : location.href.split('#')[0];
 
 /* ============================================================
@@ -940,7 +942,7 @@ document.addEventListener('click',e=>{
    Work: tabs, favourites, filter
    ============================================================ */
 const tabsEl=$('#tabs'), ind=$('#ind'); let filter={k:'all'};
-const typeMatch = (t,k) => t===k || (k==='MV' && t.includes('MV'));
+
 const count = k => k==='all' ? works.length : k==='fav' ? favs.size : works.filter(w=>typeMatch(w.type,k)).length;
 const moveInd = () => { const b=tabsEl.querySelector('button.on'); ind.style.width=b?b.offsetWidth+'px':'0'; if(b) ind.style.transform=`translateX(${b.offsetLeft}px)`; };
 function renderTabs(){
