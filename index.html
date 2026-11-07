@@ -400,7 +400,7 @@ main{padding-top:0}
 .glint{position:absolute;inset:-1px;border-radius:inherit;z-index:1;pointer-events:none;padding:1.5px;background:radial-gradient(70% 90% at var(--mx,30%) var(--my,0%),rgba(255,255,255,.95),rgba(255,255,255,.42) 45%,rgba(255,255,255,.2) 80%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0)}
 .prof-card{border-color:rgba(255,255,255,.18)}
 /* headings: navy outline; the sweep turns the letters from the cream background to white */
-.oh{--ohf:#fff;--ohb:var(--white);background:none;-webkit-text-stroke-color:#fff;filter:drop-shadow(0 2px 4px rgba(205,191,193,.6))}
+.oh{--ohf:var(--ink);--ohb:var(--white);background:none;-webkit-text-stroke-color:var(--ink);filter:drop-shadow(0 2px 4px rgba(205,191,193,.6))}
 .oh .c{background:linear-gradient(90deg,var(--ohf) 50%,var(--ohb) 50%) calc(100% - var(--t,0) * 100%) 0/200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent}
 .prof-card .oh{filter:drop-shadow(0 2px 4px rgba(0,20,80,.25));background:none;--ohf:var(--ink);--ohb:transparent}
 /* thumbnails: a slight halation — light bleeding softly across the edge of the frame */
@@ -413,7 +413,7 @@ main{padding-top:0}
 /* no pen outlines around the films, no line under the header */
 .hd::after{display:none}
 /* player controls */
-.ctrl button,.p-close{--g-fill:linear-gradient(135deg,rgba(255,255,255,.22),rgba(255,255,255,.06));--g-edge:rgba(255,255,255,.35)}
+.ctrl button,.p-close{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.4);box-shadow:none}
 .ctrl button:hover{background:rgba(255,255,255,.3);border-color:rgba(255,255,255,.6)}
 .ctrl button:hover svg{fill:#fff}
 .shared-note{border-radius:20px;--g-fill:linear-gradient(135deg,rgba(252,205,3,.55),rgba(252,205,3,.25))}
@@ -925,7 +925,7 @@ const moveInd = () => { const b=tabsEl.querySelector('button.on'); ind.style.wid
 function renderTabs(){
   tabsEl.querySelectorAll('button').forEach(b=>b.remove());
   TABS.forEach(([k,l])=>{ if(k!=='all'&&k!=='fav'&&!count(k)) return; const on=filter.k===k;
-    tabsEl.insertAdjacentHTML('beforeend',`<button role="tab" data-k="${k}" class="${on?'on':''}" aria-selected="${on}">${l}<sup>(${count(k)})</sup></button>`); });
+    tabsEl.insertAdjacentHTML('beforeend',`<button role="tab" data-k="${k}" class="${on?'on':''}" aria-selected="${on}">${l}</button>`); });
   moveInd();
 }
 function applyFilter(f){
@@ -1081,9 +1081,7 @@ $$('.news-list li').forEach(li=>gsap.timeline({scrollTrigger:{trigger:li,start:'
 gsap.from('.clap',{scale:.3,rotate:-120,opacity:0,duration:1.2,ease:'back.out(1.6)',scrollTrigger:{trigger:'.clap',start:'top 85%'}});
 gsap.from('.contact p, #mailRow',{y:30,opacity:0,stagger:.12,duration:.8,ease:'power3.out',scrollTrigger:{trigger:'.contact p',start:'top 90%'}});
 
-// Header slides away on the way down, returns on the way up
-{ let lastY=0; ScrollTrigger.create({start:0,end:'max',onUpdate:self=>{ const y=self.scroll(), hide=y>lastY&&y>300&&!document.body.classList.contains('menu-open');
-  gsap.to('#hd',{yPercent:hide?-130:0,duration:.5,ease:'power3.out',overwrite:'auto'}); lastY=y; }}); }
+// Header stays on screen at all times
 
 addEventListener('load',()=>ScrollTrigger.refresh());
 document.fonts&&document.fonts.ready.then(()=>{ moveInd(); ScrollTrigger.refresh(); });
