@@ -122,7 +122,7 @@ main{position:relative;z-index:2}
 .h1-mask{position:absolute;left:0;top:0;pointer-events:none}
 .roles{display:flex;flex-wrap:wrap;gap:6px;padding-bottom:8px}
 .roles span{font-family:var(--f-en);font-weight:800;font-size:11px;border-radius:99px;padding:1px 10px}
-.reel{position:relative;width:100%;height:min(calc(100vh - 76px),56.25vw);min-height:240px;clip-path:inset(0 calc(max(0px,(100% - 1280px) / 2) + max(5vw,16px)) round clamp(28px,5vw,64px))}
+.reel{position:relative;width:100%;height:min(calc(100vh - 76px),56.25vw);min-height:240px;clip-path:inset(0 calc(max(0px,(100% - 1280px) / 2) + max(5vw,16px)) round clamp(28px,5vw,64px) clamp(28px,5vw,64px) 0 0)}
 .cuts{position:absolute;inset:0;background:var(--navy)}
 .cut{position:absolute;inset:0;visibility:hidden}
 .cut.on{visibility:visible}
@@ -136,7 +136,7 @@ main{position:relative;z-index:2}
   .hero-top{padding-left:28px;padding-right:28px;padding-bottom:28px;row-gap:16px}
   .roles{padding-bottom:0}
   .reel{height:84svh}
-  .reel{clip-path:inset(0 28px round 28px)}
+  .reel{clip-path:inset(0 28px round 28px 28px 0 0)}
   .hero h1{font-size:calc((100vw - 56px) / 7.6)}
 }
 @media (max-width:640px){
@@ -549,7 +549,7 @@ main{padding-top:0}
           </div>
           <div class="prof-txt">
             <div class="prof-name"><b>DiDi</b><small>ILLUSTRATOR / ART DIRECTOR / AI CREATOR</small></div>
-            <p>レトロかわいい2Dアニメーションや、魅力的な3D風アニメーションを得意としています。<br>AIで生成するだけで終わらせず、そこに人の手を加え、キャラクターや世界観に命を吹き込んでいく。誰かの心をワクワクさせるような作品作りを目指しています。</p>
+            <p>レトロかわいい2Dアニメーションや、<br>魅力的な3D風アニメーションを得意としています。<br>AIで生成するだけで終わらせず、そこに人の手を加え、キャラクターや世界観に命を吹き込んでいく。<br>誰かの心をワクワクさせるような作品作りを目指しています。</p>
             <div class="tools"><span>Kling CCP</span><span>Vidu AI CPP</span><span>TapNow CPP</span><span>Framia CPP</span></div>
           </div>
         </div>
@@ -631,10 +631,10 @@ const works = [
   {t:'無限残業',        type:'2Dアニメーション',   role:'アニメーション', client:'オリジナル', y:2026, dur:92, src:'zangyo-loop.mp4',  webm:'zangyo-loop.webm', poster:'zangyo.jpg',  full:R2+'zangyo-full.mp4'},
   {t:'SAMURAI',         type:'2Dアニメーション',   role:'アニメーション', client:'オリジナル', y:2026, dur:57, src:'samurai-loop.mp4', poster:'samurai.jpg', full:R2+'SAMURAI.mp4'},
   {t:'DREAMY POP GIRL', type:'2Dアニメーション',   role:'アニメーション', client:'オリジナル', y:2026, dur:19, src:'dreamy-loop.mp4',  poster:'dreamy.jpg',  full:R2+'dori-mi-POP.mp4'},
-  {t:'AS TI IS',        type:'実写風MV',           role:'映像制作',       client:'オリジナル', y:2026, dur:69, src:'astiis-loop.mp4',  poster:'astiis.jpg',  full:R2+'AS%20IT%20IS.mp4'},
-  {t:'カンフーガール',  type:'3D風アニメーション', role:'アニメーション', client:'オリジナル', y:2026, dur:24, src:'kungfu-loop.mp4',  poster:'kungfu.jpg',  full:R2+'kungfu-girl.mp4'},
-  {t:'カーストオブザ・デッド', type:'実写風', role:'映像制作', client:'オリジナル', y:2026, dur:178, src:'', poster:'caste.jpg', full:R2+'caste-of-the-dead.mp4'},
-  {t:'冬のカフェ', type:'2Dアニメーション', role:'アニメーション', client:'オリジナル', y:2026, dur:29, src:'', poster:'wintercafe.jpg', full:R2+'winter-cafe.mp4'},
+  {t:'AS IT IS',        type:'実写風MV',           role:'映像制作',       client:'オリジナル', y:2026, dur:69, src:'astiis-loop.mp4',  poster:'astiis.jpg',  full:R2+'AS%20IT%20IS.mp4'},
+  {t:'KUNG FU GIRL',  type:'3D風アニメーション', role:'アニメーション', client:'オリジナル', y:2026, dur:24, src:'kungfu-loop.mp4',  poster:'kungfu.jpg',  full:R2+'kungfu-girl.mp4'},
+  {t:'CASTE OF THE DEAD', type:'MV', role:'映像制作', client:'オリジナル', y:2026, dur:178, src:'', poster:'caste.jpg', full:R2+'caste-of-the-dead.mp4'},
+  {t:'冬のカフェにて', type:'2Dアニメーション', role:'アニメーション', client:'オリジナル', y:2026, dur:29, src:'', poster:'wintercafe.jpg', full:R2+'winter-cafe.mp4'},
 ];
 const pickIdx = [0,1,2,3,4];            // works shown in PICK UP (by index)
 // wide:true = 横型のまま帯に並ぶ
@@ -994,7 +994,7 @@ gsap.registerPlugin(ScrollTrigger);
 const rf=$('#reelFrame');
 // the reel's side margins match the headline's left edge (the .wrap content edge)
 const heroWrap=$('.hero-top'); const gut=()=>Math.round(heroWrap.getBoundingClientRect().left+parseFloat(getComputedStyle(heroWrap).paddingLeft)), reelR=()=>Math.round(Math.min(64,Math.max(28,innerWidth*.05)));
-const reelRest=()=>`inset(0px ${gut()}px 0px ${gut()}px round ${reelR()}px)`;
+const reelRest=()=>`inset(0px ${gut()}px 0px ${gut()}px round ${reelR()}px ${reelR()}px 0px 0px)`;
 gsap.set(rf,{clipPath:reelRest()});
 
 // Opening = the real loader. The little office worker walks on the spot in the middle while the wave under him is drawn
@@ -1040,7 +1040,7 @@ const docTop = el => { let t=0; for(;el;el=el.offsetParent) t+=el.offsetTop; ret
 // it starts as a narrower window and stretches to the screen edges, while the picture inside eases back from a zoom,
 // so the frame visibly widens rather than just losing its margins
 gsap.timeline({scrollTrigger:{trigger:rf,start:0,end:()=>Math.max(1,Math.round(docTop(rf)+rf.offsetHeight-innerHeight)),scrub:.4,invalidateOnRefresh:true}})
-  .fromTo(rf,{clipPath:reelRest},{clipPath:'inset(0px 0px 0px 0px round 0px)',ease:'power2.inOut',immediateRender:false},0)
+  .fromTo(rf,{clipPath:reelRest},{clipPath:'inset(0px 0px 0px 0px round 0px 0px 0px 0px)',ease:'power2.inOut',immediateRender:false},0)
   .fromTo('#cuts',{scaleX:1.22,scaleY:1.12},{scaleX:1,scaleY:1,ease:'power2.inOut'},0);
 gsap.to('#cuts',{yPercent:8,ease:'none',scrollTrigger:{trigger:rf,start:'top top',end:'bottom top',scrub:true}});
 gsap.to('.hero h1',{xPercent:-6,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
