@@ -699,7 +699,7 @@ $('#shortsTrack').innerHTML = shortHTML+shortHTML;
 $('#newsList').innerHTML = news.map((n,i)=>`<li><span class="rule"></span><a href="#news" data-play><time>${n.d}</time><b>${n.t.map((l,k)=>`<span${k?' class="sub"':''}>${l}</span>`).join('')}</b><span class="circle-arw">${ARROW}</span></a></li>`).join('');
 $('#cuts').innerHTML = works.map((w,i)=>[w,i]).filter(([w])=>w.src).map(([w,i],j)=>`<div class="cut${j?'':' on'}" data-wi="${i}">${screen(w,i)}</div>`).join('');
 $('#carDots').innerHTML = pickIdx.map((wi,j)=>`<button role="tab" aria-label="${j+1}本目：${works[wi].t}"></button>`).join('');
-$('#ldSub').innerHTML = 'PORTFOLIO SITE'.split('').map(c=>`<span>${c}</span>`).join('');
+$('#ldSub').innerHTML = 'NOW LOADING'.split('').map(c=>`<span>${c}</span>`).join('');
 $$('[data-split]').forEach(el=>{ el.innerHTML = el.textContent.split('').map(c=>`<span class="c">${c===' '?'&nbsp;':c}</span>`).join(''); });
 
 /* ============================================================
@@ -1002,8 +1002,8 @@ gsap.set(rf,{clipPath:reelRest()});
 // Opening = the real loader. The little office worker walks on the spot in the middle while the wave under him is drawn
 // as the page actually loads (fonts, the first reel clip, the rest of the page). When it is complete, the curtains lift.
 const ldWave=$('#ldWave'), wl=ldWave.getTotalLength(), prog={v:0}, ldChar=$('#ldChar');
-gsap.set(ldWave,{strokeDasharray:wl,strokeDashoffset:-wl}); gsap.set('.ld-panel',{y:0,yPercent:115});
-const placeWalker = () => gsap.set(ldWave,{strokeDashoffset:-wl*(1-prog.v)});   // he walks on the spot in the middle
+gsap.set(ldWave,{strokeDasharray:wl,strokeDashoffset:wl}); gsap.set('.ld-panel',{y:0,yPercent:115});
+const placeWalker = () => gsap.set(ldWave,{strokeDashoffset:wl*(1-prog.v)});   // he walks on the spot in the middle
 placeWalker();
 const intro=gsap.timeline().from('#ldSub span',{opacity:0,y:8,stagger:.03,duration:.4,ease:'power2.out'},.5);
 const drawTo = t => new Promise(res=>gsap.to(prog,{v:t,duration:.9,ease:'power1.inOut',overwrite:true,onUpdate:placeWalker,onComplete:res}));
