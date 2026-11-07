@@ -887,7 +887,9 @@ function openPlayer(w, vertical){
   pframe.innerHTML = w.full ? `<div class="screen"><video src="${w.full}"${w.poster?` poster="${w.poster}"`:''} playsinline webkit-playsinline preload="auto"></video></div>`
     : vsrc ? `<iframe src="${vsrc}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="${w.t}"></iframe>` : screen(w);
   pv = vsrc ? null : w.full ? pframe.querySelector('video') : load(pframe.querySelector('video'));
-  if(w.full) pv.addEventListener('ended',()=>setIcon(false));
+  if(w.full){ pv.addEventListener('ended',()=>setIcon(false));
+    // where the full film can't be fetched (e.g. inside the claude.ai preview), fall back to the loop clip
+    pv.addEventListener('error',()=>{ if(!w.src) return toast('本編は公開サイトで再生できます'); pframe.innerHTML=screen(w); pv=load(pframe.querySelector('video')); pv.play().catch(()=>{}); toast('本編は公開サイトで再生できます'); },{once:true}); }
   if(pv){ pv.currentTime=0; pv.play().catch(()=>{}); setIcon(true); }
   $('#ptitle').textContent=w.t; $('#pmeta').innerHTML=metaHTML(w);
   document.body.classList.add('p-open'); lockScroll(true); if(!pRaf) pRaf=requestAnimationFrame(pLoop);
