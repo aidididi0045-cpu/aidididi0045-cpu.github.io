@@ -252,8 +252,8 @@ main{position:relative;z-index:2}
 /* ---------- News ---------- */
 .news-list{list-style:none;margin:0;padding:0}
 .news-list li{position:relative}
-.news-list .rule{position:absolute;left:0;right:0;top:0;height:var(--pen);background:var(--ink);transform-origin:left;z-index:1}
-.news-list li:last-child::after{content:"";position:absolute;left:0;right:0;bottom:0;height:var(--pen);background:var(--ink)}
+.news-list .rule{position:absolute;left:0;right:0;top:0;height:var(--pen);background:var(--gray-2);transform-origin:left;z-index:1}
+.news-list li:last-child::after{content:"";position:absolute;left:0;right:0;bottom:0;height:var(--pen);background:var(--gray-2)}
 .news-list a{display:grid;grid-template-columns:150px 1fr 52px;gap:28px;align-items:center;padding:28px 0;position:relative;isolation:isolate}
 .news-list a::after{content:"";position:absolute;inset:3px 0 0;z-index:-1;clip-path:inset(0 100% 0 0);transition:clip-path .55s var(--ease)}
 .news-list a:hover::after{clip-path:inset(0)}
@@ -439,6 +439,8 @@ main{padding-top:0}
 .copy{background:linear-gradient(160deg,rgba(255,255,255,.55) 0%,rgba(255,255,255,.16) 52%,rgba(255,255,255,.24) 100%)}
 .menu-btn{background:rgba(255,255,255,.16);box-shadow:none}
 .totop:hover,.copy:hover{background:linear-gradient(160deg,rgba(255,255,255,.85),rgba(255,255,255,.45))}
+.copy,.totop{background:rgba(255,255,255,.4);border:1.5px solid rgba(255,255,255,.95);box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none}
+.copy:hover,.totop:hover{background:rgba(255,255,255,.75);color:var(--ink)}
 .hd.noline::after{background-size:44px 14px,0 0,0 0,0 0!important;opacity:.6}
 /* keep the rest plain, so the glass stands out where it is used */
 .tabs .ind{background:rgba(255,255,255,.75);border:0;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none}
@@ -553,7 +555,7 @@ main{padding-top:0}
         </div>
         <div class="sns">
           <a class="sns-btn" href="https://x.com/DiDiDi0045" target="_blank" rel="noopener" aria-label="X"><span class="sns-x">X</span></a>
-          <a class="sns-btn" href="https://www.youtube.com/@didi0405_ch" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M9 7.5l8 4.5-8 4.5z"/></svg></a>
+          <a class="sns-btn" href="https://www.youtube.com/@didi0405_ch" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24"><path fill-rule="evenodd" d="M6.5 5h11A4.5 4.5 0 0 1 22 9.5v5a4.5 4.5 0 0 1-4.5 4.5h-11A4.5 4.5 0 0 1 2 14.5v-5A4.5 4.5 0 0 1 6.5 5zM10 9v6l5.2-3z"/></svg></a>
         </div>
       </div>
     </div>
@@ -573,7 +575,7 @@ main{padding-top:0}
         <div class="clap-ico"><img src="pigeon.webp" width="316" height="230" alt="" loading="lazy" decoding="async"></div>
       </div>
       <p>映像制作のご依頼、ご相談はこちらからどうぞ。<br>企画段階からでもお気軽にご連絡ください。</p>
-      <div class="mail" id="mailRow"><code id="mail">hello@didi-motion.jp</code><button class="copy" id="copyBtn">COPY</button></div>
+      <div class="mail" id="mailRow"><code id="mail">aidididi0045@gmail.com</code><button class="copy" id="copyBtn">COPY</button></div>
     </div>
   </section>
   <div class="wrap totop-row"><a class="totop" href="#top" aria-label="ページの先頭へ"><svg viewBox="0 0 24 24"><path d="M4 16l8-8 8 8"/></svg></a></div>
