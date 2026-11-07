@@ -672,7 +672,7 @@ const news = [
   {d:'2026.08.07', t:['AI VIDEO GALLERY Summer Showcase 2026「ミラクルキャット☆ミル」','渋谷愛ビジョン、ヨコハマビジョンにて放映']},
   {d:'2026.06.06', t:['TapNow 東京 36時間ハッカソン「魔法少女 マジカル☆リベンジ」','1位受賞 / ソーシャルメディアアワード受賞']},
 ];
-const TABS = [['all','All'],['CM','CM'],['MV','MV'],['モーショングラフィックス','Motion Graphics'],['2Dアニメーション','2D Animation'],['3D風アニメーション','3D Style'],['実写風','Live-action Style'],['fav','Favorite']];
+const TABS = [['all','All'],['CM','CM'],['MV','MV'],['モーショングラフィックス','Motion Graphics'],['2Dアニメーション','2D Animation'],['3D風アニメーション','3D Style'],['実写風','Live Action'],['fav','Favorite']];
 // English label for a work's type, using the same names as the Work tabs
 const typeMatch = (t,k) => t===k || t.split(/\s+/).includes(k) || (k==='MV' && t.includes('MV'));
 const typeLabel = t => { const ls=TABS.filter(([k])=>k!=='all'&&k!=='fav'&&typeMatch(t,k)).map(x=>x[1]); return ls.length?ls.join(' / '):t; };
