@@ -258,7 +258,8 @@ main{position:relative;z-index:2}
 .news-list a::after{content:"";position:absolute;inset:3px 0 0;z-index:-1;clip-path:inset(0 100% 0 0);transition:clip-path .55s var(--ease)}
 .news-list a:hover::after{clip-path:inset(0)}
 .news-list time{font-family:var(--f-en);font-weight:800;font-size:14px;padding-left:4px}
-.news-list b{font-weight:700;min-width:0}
+.news-list b{font-weight:700;min-width:0;display:flex;flex-direction:column;gap:2px;line-height:1.6}
+.news-list b .sub{font-weight:500;font-size:.92em}
 .circle-arw{width:52px;height:52px;border-radius:50%;border:2px solid var(--ink);display:grid;place-items:center;background:var(--white);transition:background .35s,transform .5s var(--ease)}
 .circle-arw svg{width:20px;height:14px;fill:none;stroke:var(--ink);stroke-width:2.4;transition:stroke .35s}
 .news-list a:hover .circle-arw svg{stroke:var(--white)}
@@ -640,15 +641,16 @@ const pickIdx = [0,1,2,3,4];            // works shown in PICK UP (by index)
 // wide:true = 横型のまま帯に並ぶ
 const shorts = [
   {t:'Demons cafe DEMONICA',  type:'3D風アニメーション', role:'アニメーション', client:'オリジナル', y:2026, dur:18, src:'demonica-loop.mp4',  poster:'demonica.jpg',  vimeo:''},
-  {t:'浮遊ガール',            type:'2Dアニメーション',   role:'アニメーション', client:'オリジナル', y:2026, dur:6,  src:'floating-loop.mp4',  poster:'floating.jpg',  vimeo:''},
   {t:'CREATION',              type:'2Dアニメーション',   role:'アニメーション', client:'オリジナル', y:2026, dur:8,  src:'creation-loop.mp4',  poster:'creation.jpg',  vimeo:'', wide:true},
+  {t:'浮遊ガール',            type:'2Dアニメーション',   role:'アニメーション', client:'オリジナル', y:2026, dur:6,  src:'floating-loop.mp4',  poster:'floating.jpg',  vimeo:''},
   {t:'ミラクルキャット☆ミル', type:'2Dアニメーション',   role:'アニメーション', client:'オリジナル', y:2026, dur:6,  src:'milu-loop.mp4',      poster:'milu.jpg',      vimeo:'', wide:true},
   {t:'Demons cafe DEMONICA',  type:'3D風アニメーション', role:'アニメーション', client:'オリジナル', y:2026, dur:5,  src:'demonica2-loop.mp4', poster:'demonica2.jpg', vimeo:''},
 ];
 const news = [
-  {d:'2026.10.21', t:'2026年のショーリールを公開しました。'},
-  {d:'2026.08.02', t:'MV「ひかりのほう」のアニメーションを担当しました。'},
-  {d:'2026.05.11', t:'短編アニメーション「まいにちのかたち」が映像祭で入選しました。'},
+  {d:'2026.10.16', t:['TapTV Arena Peak Asia','「Re:ROAD」','ベストIP賞 / 日本エリア賞 / 入選 / ARENA PICK 2026 RED受賞']},
+  {d:'2026.10.16', t:['アレヤコレヤ展にて「SAMURAI」を展示']},
+  {d:'2026.08.07', t:['AI VIDEO GALLERY Summer Showcase 2026','渋谷愛ビジョン、ヨコハマビジョンにて「ミラクルキャット☆ミル」を放映']},
+  {d:'2026.06.06', t:['TapNow 東京 36時間ハッカソン','「魔法少女 マジカル☆リベンジ」','1位受賞 / ソーシャルメディアアワード受賞']},
 ];
 const TABS = [['all','All'],['CM','CM'],['MV','MV'],['モーショングラフィックス','Motion Graphics'],['2Dアニメーション','2D Animation'],['3D風アニメーション','3D Style'],['実写風','Live-action Style'],['fav','Favorite']];
 // English label for a work's type, using the same names as the Work tabs
@@ -694,7 +696,7 @@ $('#grid').innerHTML = works.map((w,i)=>`<article class="card" data-i="${i}" dat
   <div class="meta"><div class="meta-row"><span class="tag">${typeLabel(w.type)}</span><span>${w.role}<em> | ${w.y}</em></span></div><button class="fav${favs.has(i)?' on':''}" aria-label="お気に入り" aria-pressed="${favs.has(i)}">${STAR}</button><h3>${w.t}</h3></div></article>`).join('');
 const shortHTML = shorts.map((s,i)=>`<a class="short${s.wide?' wide':''}" href="#top" data-s="${i}" aria-label="${s.t}を再生"><div class="frame">${screen(s,i)}</div></a>`).join('');
 $('#shortsTrack').innerHTML = shortHTML+shortHTML;
-$('#newsList').innerHTML = news.map((n,i)=>`<li><span class="rule"></span><a href="#news" data-play><time>${n.d}</time><b>${n.t}</b><span class="circle-arw">${ARROW}</span></a></li>`).join('');
+$('#newsList').innerHTML = news.map((n,i)=>`<li><span class="rule"></span><a href="#news" data-play><time>${n.d}</time><b>${n.t.map((l,k)=>`<span${k?' class="sub"':''}>${l}</span>`).join('')}</b><span class="circle-arw">${ARROW}</span></a></li>`).join('');
 $('#cuts').innerHTML = works.map((w,i)=>[w,i]).filter(([w])=>w.src).map(([w,i],j)=>`<div class="cut${j?'':' on'}" data-wi="${i}">${screen(w,i)}</div>`).join('');
 $('#carDots').innerHTML = pickIdx.map((wi,j)=>`<button role="tab" aria-label="${j+1}本目：${works[wi].t}"></button>`).join('');
 $('#ldSub').innerHTML = 'PORTFOLIO SITE'.split('').map(c=>`<span>${c}</span>`).join('');
