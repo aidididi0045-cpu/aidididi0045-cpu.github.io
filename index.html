@@ -112,7 +112,7 @@ main{position:relative;z-index:2}
 .line-link svg{width:24px;height:14px;fill:none;stroke:var(--ink);stroke-width:2.4;transition:transform .5s var(--ease)}
 .line-link:hover svg{transform:translateX(8px)}
 /* ---------- First view: headline filled with the reel, then the reel ---------- */
-.hero{position:relative;background:var(--navy)}
+.hero{position:relative;background:linear-gradient(var(--navy) calc(100% - 18px),transparent 0)}
 .hero-top{--ink:#F0E8E8;color:var(--ink);display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;padding-block:40px 28px}
 .hero h1{position:relative;font-family:var(--f-en);font-weight:900;font-size:min(140px,9.5vw,calc((100vw - 2 * max(5vw,16px)) / 8.8));line-height:.9;letter-spacing:.01em;margin:0;text-transform:uppercase}
 .hero h1 .ln{display:block;overflow:hidden;padding-bottom:.04em;white-space:nowrap}
@@ -126,6 +126,7 @@ main{position:relative;z-index:2}
 .cuts{position:absolute;inset:0;background:var(--navy)}
 .cut{position:absolute;inset:0;visibility:hidden}
 .cut.on{visibility:visible}
+.reel{-webkit-mask:linear-gradient(#000 0 0) 0 0/100% calc(100% - 13px) no-repeat,var(--wave) 0 100%/44px 14px repeat-x;mask:linear-gradient(#000 0 0) 0 0/100% calc(100% - 13px) no-repeat,var(--wave) 0 100%/44px 14px repeat-x}
 .reel-play{position:absolute;left:50%;top:50%;width:150px;height:150px;margin:-75px 0 0 -75px;z-index:7;border-radius:50%;background:var(--mark);border:var(--pen) solid var(--ink);display:grid;place-items:center;transition:transform .5s var(--ease)}
 .reel-play:hover{transform:scale(1.1)}
 .reel-play .rt{position:absolute;inset:6px;width:calc(100% - 12px);height:calc(100% - 12px);animation:spin 14s linear infinite}
