@@ -659,7 +659,8 @@ main{padding-top:0}
    ============================================================ */
 const R2 = 'https://pub-220729d1224749d9882c0ed0e24d5dbe.r2.dev/';
 /* first-view showreel: a light silent loop on the page; PLAY REEL opens the full version with sound */
-const REEL = {t:'DiDi SHOWREEL', type:'2Dアニメーション 3D風アニメーション', role:'アニメーション・映像制作', client:'オリジナル', y:2026, dur:22, src:'fv-reel.mp4', poster:'fv-reel.jpg', full:'fv-reel-full.mp4'};
+const REEL = {t:'DiDi SHOWREEL', type:'2Dアニメーション 3D風アニメーション', role:'アニメーション・映像制作', client:'オリジナル', y:2026, dur:22, src:(innerWidth*Math.min(2,devicePixelRatio||1)>1400?'fv-reel-full.mp4':'fv-reel-720.mp4'), poster:'fv-reel-1080.jpg', full:'fv-reel-full.mp4'};
+/* big screens loop the 1080p film itself (muted), so PLAY REEL reuses what is already loaded; phones get a 720p copy */
 const works = [
   {t:'君がメロかわいい！', type:'2Dアニメーション MV', role:'アニメーション', client:'オリジナル', y:2026, dur:0, src:'melo-v2.mp4', poster:'melo-v2.jpg', yt:'ROkF3HWV6WA'},
   {t:'AS IT IS',        type:'実写風 MV',           role:'映像制作',       client:'オリジナル', y:2026, dur:69, src:'astiis-v2.mp4',  poster:'astiis-v2.jpg',  full:R2+'AS%20IT%20IS.mp4'},
@@ -669,8 +670,8 @@ const works = [
   {t:'冬のカフェにて', type:'2Dアニメーション', role:'アニメーション', client:'オリジナル', y:2026, dur:29, src:'wintercafe-v2.mp4', poster:'wintercafe-v2.jpg', full:R2+'winter-cafe.mp4'},
   {t:'CASTE OF THE DEAD', type:'実写風 MV', role:'映像制作', client:'オリジナル', y:2026, dur:178, src:'caste-v2.mp4', poster:'caste-v2.jpg', full:R2+'caste-of-the-dead.mp4'},
   {t:'無限残業',        type:'2Dアニメーション',   role:'アニメーション', client:'オリジナル', y:2025, dur:92, src:'zangyo-v2.mp4', poster:'zangyo-v2.jpg',  full:R2+'zangyo-full.mp4'},
-  {t:'魔法少女マジカル☆リベンジ', type:'3D風アニメーション', role:'アニメーション', client:'オリジナル', y:2026, dur:0, src:'magical-v2.mp4', poster:'magical-v2.jpg', yt:'SLK2-aWp9uY'},
-  {t:'SLEEP MODE', type:'3D風アニメーション MV', role:'アニメーション', client:'オリジナル', y:2026, dur:0, src:'sleepmode-v2.mp4', poster:'sleepmode-v2.jpg', yt:'afsjKzUk_M8'},
+  {t:'魔法少女マジカル☆リベンジ', type:'3D風アニメーション', role:'アニメーション', client:'オリジナル', y:2026, dur:0, src:'magical-v2.mp4', poster:'magical.webp', yt:'SLK2-aWp9uY'},
+  {t:'SLEEP MODE', type:'3D風アニメーション MV', role:'アニメーション', client:'オリジナル', y:2026, dur:0, src:'sleepmode-v2.mp4', poster:'sleepmode.webp', yt:'afsjKzUk_M8'},
 ];
 const pickIdx = [0,1,2,3,4];            // works shown in PICK UP (by index)
 // wide:true = 横型のまま帯に並ぶ
