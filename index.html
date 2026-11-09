@@ -124,6 +124,7 @@ main{position:relative;z-index:2}
 .roles span{font-family:var(--f-en);font-weight:800;font-size:11px;border-radius:99px;padding:1px 10px}
 .reel{position:relative;width:100%;height:min(calc(100vh - 76px),56.25vw);min-height:240px;clip-path:inset(0 calc(max(0px,(100% - 1280px) / 2) + max(5vw,16px)) round clamp(28px,5vw,64px) clamp(28px,5vw,64px) 0 0)}
 .cuts{position:absolute;inset:0;background:var(--navy)}
+.cuts .screen{background:var(--navy)}
 .cut{position:absolute;inset:0;visibility:hidden}
 .cut.on{visibility:visible}
 .reel{-webkit-mask:linear-gradient(#000 0 0) 0 0/100% calc(100% - 13px) no-repeat,var(--wave) 0 100%/44px 14px repeat-x;mask:linear-gradient(#000 0 0) 0 0/100% calc(100% - 13px) no-repeat,var(--wave) 0 100%/44px 14px repeat-x}
@@ -139,7 +140,8 @@ main{position:relative;z-index:2}
   .reel{height:calc(100vw - 56px);min-height:0;-webkit-mask:none;mask:none}   /* square as first seen (28px side margins) */
   .hero{background:var(--navy);padding-bottom:32px}
   .hero::after{content:"";position:absolute;left:0;right:0;top:calc(100% - 1px);height:14px;z-index:1;background:var(--navy);-webkit-mask:var(--wave) repeat-x 0 0/44px 14px;mask:var(--wave) repeat-x 0 0/44px 14px;pointer-events:none}
-  .reel{clip-path:inset(0 28px round 28px 28px 0 0)}
+  .reel{clip-path:inset(0 28px round 28px)}
+  .reel{isolation:isolate;-webkit-mask-image:linear-gradient(#000,#000)}   /* forces the film's layer to respect the rounded clip */
   .hero h1{font-size:calc((100vw - 56px) / 7.6)}
 }
 @media (max-width:640px){
@@ -1081,7 +1083,8 @@ gsap.registerPlugin(ScrollTrigger);
 const rf=$('#reelFrame');
 // the reel's side margins match the headline's left edge (the .wrap content edge)
 const heroWrap=$('.hero-top'); const gut=()=>Math.round(heroWrap.getBoundingClientRect().left+parseFloat(getComputedStyle(heroWrap).paddingLeft)), reelR=()=>Math.round(Math.min(64,Math.max(28,innerWidth*.05)));
-const reelRest=()=>`inset(0px ${gut()}px 0px ${gut()}px round ${reelR()}px ${reelR()}px 0px 0px)`;
+const reelRest=()=>{ const r=reelR(), rb=innerWidth<=760?r:0;   // phones: all four corners rounded
+  return `inset(0px ${gut()}px 0px ${gut()}px round ${r}px ${r}px ${rb}px ${rb}px)`; };
 gsap.set(rf,{clipPath:reelRest()});
 
 // Opening = the real loader. The little office worker walks on the spot in the middle while the wave under him is drawn
