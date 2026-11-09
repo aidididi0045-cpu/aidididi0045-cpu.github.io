@@ -658,17 +658,19 @@ main{padding-top:0}
    src が空の作品は、一覧ではポスター画像だけを表示します
    ============================================================ */
 const R2 = 'https://pub-220729d1224749d9882c0ed0e24d5dbe.r2.dev/';
+/* first-view showreel: a light silent loop on the page; PLAY REEL opens the full version with sound */
+const REEL = {t:'DiDi SHOWREEL', type:'2Dアニメーション 3D風アニメーション', role:'アニメーション・映像制作', client:'オリジナル', y:2026, dur:22, src:'fv-reel.mp4', poster:'fv-reel.jpg', full:'fv-reel-full.mp4'};
 const works = [
-  {t:'君がメロかわいい！', type:'2Dアニメーション MV', role:'アニメーション', client:'オリジナル', y:2026, dur:0, src:'', poster:'melo.webp', yt:'ROkF3HWV6WA'},
-  {t:'AS IT IS',        type:'実写風 MV',           role:'映像制作',       client:'オリジナル', y:2026, dur:69, src:'astiis-loop.mp4',  poster:'astiis.jpg',  full:R2+'AS%20IT%20IS.mp4'},
-  {t:'KUNG FU GIRL',  type:'3D風アニメーション', role:'アニメーション', client:'オリジナル', y:2026, dur:24, src:'kungfu-loop.mp4',  poster:'kungfu.jpg',  full:R2+'kungfu-girl.mp4'},
-  {t:'DREAMY POP GIRL', type:'2Dアニメーション',   role:'アニメーション', client:'オリジナル', y:2026, dur:19, src:'dreamy-loop.mp4',  poster:'dreamy.jpg',  full:R2+'dori-mi-POP.mp4'},
-  {t:'SAMURAI',         type:'2Dアニメーション',   role:'アニメーション', client:'オリジナル', y:2026, dur:57, src:'samurai-loop.mp4', poster:'samurai.jpg', full:R2+'SAMURAI.mp4'},
-  {t:'冬のカフェにて', type:'2Dアニメーション', role:'アニメーション', client:'オリジナル', y:2026, dur:29, src:'', poster:'wintercafe.jpg', full:R2+'winter-cafe.mp4'},
-  {t:'CASTE OF THE DEAD', type:'実写風 MV', role:'映像制作', client:'オリジナル', y:2026, dur:178, src:'', poster:'caste.jpg', full:R2+'caste-of-the-dead.mp4'},
-  {t:'無限残業',        type:'2Dアニメーション',   role:'アニメーション', client:'オリジナル', y:2025, dur:92, src:'zangyo-loop.mp4',  webm:'zangyo-loop.webm', poster:'zangyo.jpg',  full:R2+'zangyo-full.mp4'},
-  {t:'魔法少女マジカル☆リベンジ', type:'3D風アニメーション', role:'アニメーション', client:'オリジナル', y:2026, dur:0, src:'', poster:'magical.webp', yt:'SLK2-aWp9uY'},
-  {t:'SLEEP MODE', type:'3D風アニメーション MV', role:'アニメーション', client:'オリジナル', y:2026, dur:0, src:'', poster:'sleepmode.webp', yt:'afsjKzUk_M8'},
+  {t:'君がメロかわいい！', type:'2Dアニメーション MV', role:'アニメーション', client:'オリジナル', y:2026, dur:0, src:'melo-v2.mp4', poster:'melo-v2.jpg', yt:'ROkF3HWV6WA'},
+  {t:'AS IT IS',        type:'実写風 MV',           role:'映像制作',       client:'オリジナル', y:2026, dur:69, src:'astiis-v2.mp4',  poster:'astiis-v2.jpg',  full:R2+'AS%20IT%20IS.mp4'},
+  {t:'KUNG FU GIRL',  type:'3D風アニメーション', role:'アニメーション', client:'オリジナル', y:2026, dur:24, src:'kungfu-v2.mp4',  poster:'kungfu-v2.jpg',  full:R2+'kungfu-girl.mp4'},
+  {t:'DREAMY POP GIRL', type:'2Dアニメーション',   role:'アニメーション', client:'オリジナル', y:2026, dur:19, src:'dreamy-v2.mp4',  poster:'dreamy-v2.jpg',  full:R2+'dori-mi-POP.mp4'},
+  {t:'SAMURAI',         type:'2Dアニメーション',   role:'アニメーション', client:'オリジナル', y:2026, dur:57, src:'samurai-v2.mp4', poster:'samurai-v2.jpg', full:R2+'SAMURAI.mp4'},
+  {t:'冬のカフェにて', type:'2Dアニメーション', role:'アニメーション', client:'オリジナル', y:2026, dur:29, src:'wintercafe-v2.mp4', poster:'wintercafe-v2.jpg', full:R2+'winter-cafe.mp4'},
+  {t:'CASTE OF THE DEAD', type:'実写風 MV', role:'映像制作', client:'オリジナル', y:2026, dur:178, src:'caste-v2.mp4', poster:'caste-v2.jpg', full:R2+'caste-of-the-dead.mp4'},
+  {t:'無限残業',        type:'2Dアニメーション',   role:'アニメーション', client:'オリジナル', y:2025, dur:92, src:'zangyo-v2.mp4', poster:'zangyo-v2.jpg',  full:R2+'zangyo-full.mp4'},
+  {t:'魔法少女マジカル☆リベンジ', type:'3D風アニメーション', role:'アニメーション', client:'オリジナル', y:2026, dur:0, src:'magical-v2.mp4', poster:'magical-v2.jpg', yt:'SLK2-aWp9uY'},
+  {t:'SLEEP MODE', type:'3D風アニメーション MV', role:'アニメーション', client:'オリジナル', y:2026, dur:0, src:'sleepmode-v2.mp4', poster:'sleepmode-v2.jpg', yt:'afsjKzUk_M8'},
 ];
 const pickIdx = [0,1,2,3,4];            // works shown in PICK UP (by index)
 // wide:true = 横型のまま帯に並ぶ
@@ -731,7 +733,7 @@ $('#grid').innerHTML = works.map((w,i)=>`<article class="card" data-i="${i}" dat
 const shortHTML = shorts.map((s,i)=>`<a class="short${s.wide?' wide':''}" href="#top" data-s="${i}" aria-label="${s.t}を再生"><div class="frame">${screen(s,i)}</div></a>`).join('');
 $('#shortsTrack').innerHTML = shortHTML+shortHTML;
 $('#newsList').innerHTML = news.map((n,i)=>`<li><span class="rule"></span><a href="#news" data-play><time>${n.d}</time><b>${n.t.map((l,k)=>`<span${k?' class="sub"':''}>${l}</span>`).join('')}</b><span class="circle-arw">${ARROW}</span></a></li>`).join('');
-$('#cuts').innerHTML = works.map((w,i)=>[w,i]).filter(([w])=>w.src).map(([w,i],j)=>`<div class="cut${j?'':' on'}" data-wi="${i}">${screen(w,i)}</div>`).join('');
+$('#cuts').innerHTML = `<div class="cut on" data-wi="-1">${screen(REEL,0)}</div>`;
 $('#carDots').innerHTML = pickIdx.map((wi,j)=>`<button role="tab" aria-label="${j+1}本目：${works[wi].t}"></button>`).join('');
 $('#ldSub').innerHTML = 'NOW LOADING'.split('').map(c=>`<span>${c}</span>`).join('');
 $$('[data-split]').forEach(el=>{ el.innerHTML = el.textContent.split('').map(c=>`<span class="c">${c===' '?'&nbsp;':c}</span>`).join(''); });
@@ -745,13 +747,13 @@ const lockScroll = on => lenis && (on ? lenis.stop() : lenis.start());
 const scrollToEl = el => { if(!el) return; if(lenis) lenis.scrollTo(el,{offset:-76,duration:1.4}); else scrollTo({top:el.getBoundingClientRect().top+scrollY-76,behavior:RM?'auto':'smooth'}); };
 
 /* ============================================================
-   Showreel: random works, plain cuts
+   Showreel: one edited loop (the cut machinery still works if more cuts are added)
    ============================================================ */
 const cuts = $$('.cut'); let cutIdx=0, cutTimer=null, reelLive=true;
-const cutTo = n => { const c=cuts[n], v=load(c.querySelector('video')); if(v) whenReady(v,()=>{ try{ v.currentTime=rnd(0,v.duration*.8); }catch(e){} });
+const cutTo = n => { const c=cuts[n], v=load(c.querySelector('video')); if(v && cuts.length>1) whenReady(v,()=>{ try{ v.currentTime=rnd(0,v.duration*.8); }catch(e){} });
   if(n!==cutIdx){ cuts[cutIdx].classList.remove('on'); stop(cuts[cutIdx].querySelector('.screen')); c.classList.add('on'); cutIdx=n; }
   play(c.querySelector('.screen')); };
-const nextCut = () => { if(!reelLive) return; cutTo(Math.floor(Math.random()*cuts.length)); cutTimer=setTimeout(nextCut,rnd(900,2200)); };
+const nextCut = () => { if(!reelLive || cuts.length<2) return; cutTo(Math.floor(Math.random()*cuts.length)); cutTimer=setTimeout(nextCut,rnd(900,2200)); };
 const setReelLive = on => { if(on===reelLive) return; reelLive=on; clearTimeout(cutTimer); if(on){ play(cuts[cutIdx].querySelector('.screen')); cutTimer=setTimeout(nextCut,1200); } else stop(cuts[cutIdx].querySelector('.screen')); };
 { const v0=load(cuts[0].querySelector('video')); if(v0){ v0.preload='auto'; } }
 cutTo(0); if(!RM) cutTimer=setTimeout(nextCut,2600);
@@ -943,7 +945,7 @@ scrub.addEventListener('pointerdown',e=>{ scrub.setPointerCapture(e.pointerId); 
 scrub.addEventListener('pointerup',()=>scrub.onpointermove=null);
 scrub.addEventListener('keydown',e=>{ if(!pv) return; if(e.key==='ArrowRight') pv.currentTime=Math.min(pv.duration||0,pv.currentTime+5); if(e.key==='ArrowLeft') pv.currentTime=Math.max(0,pv.currentTime-5); });
 $('#pclose').onclick=closePlayer; $('#pbg').onclick=closePlayer;
-$('#reelPlay').onclick=()=>openPlayer(works[+cuts[cutIdx].dataset.wi]);   // opens the film currently on the reel
+$('#reelPlay').onclick=()=>{ const wi=+cuts[cutIdx].dataset.wi; openPlayer(wi<0?REEL:works[wi]); };   // opens the film currently on the reel
 document.addEventListener('click',e=>{
   if(e.target.closest('.fav')) return;
   const sh=e.target.closest('[data-s]');
