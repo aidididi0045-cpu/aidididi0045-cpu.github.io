@@ -291,8 +291,9 @@ main{position:relative;z-index:2}
 .ft nav{display:flex;flex-wrap:wrap;gap:8px 24px}
 .ft nav a{font-family:var(--f-en);font-weight:800;font-size:12px}
 .totop-row{position:relative;z-index:4;display:flex;justify-content:flex-end;padding-block:0 28px}
-/* illustration resting on the footer: its bottom edge tucks under the footer's wave */
-.ft-art{position:relative;z-index:1;width:min(1100px,92vw);margin:8px auto calc(min(1100px,92vw) * -.05);pointer-events:none}
+/* illustration standing on the footer: drawn in front of it, its bottom overlapping the wave */
+.ft-art-space{--aw:min(1100px,92vw);height:calc(var(--aw) * 639 / 1700 - var(--aw) * .05 + 8px)}
+.ft-art{--aw:min(1100px,92vw);position:absolute;z-index:2;left:50%;bottom:calc(100% - var(--aw) * .05);width:var(--aw);translate:-50% 0;pointer-events:none}
 .ft-art img,.ft-art video{display:block;width:100%;height:auto;aspect-ratio:1700/639}
 /* footer: a little taller, with the back-to-top button on its right */
 .ft .wrap{min-height:120px;padding-top:24px;padding-bottom:calc(20px + env(safe-area-inset-bottom,0px))}
@@ -605,10 +606,11 @@ main{padding-top:0}
       <div class="mail" id="mailRow"><code id="mail">aidididi0045@gmail.com</code><button class="copy" id="copyBtn">COPY</button></div>
     </div>
   </section>
-  <div class="ft-art" id="ftArt" aria-hidden="true"><video src="footer-team.webm" width="1700" height="639" muted loop playsinline preload="none"></video><img src="footer-team.webp" width="1700" height="639" alt="" loading="lazy" decoding="async" hidden></div>
+  <div class="ft-art-space" aria-hidden="true"></div>
 </main>
 
 <footer class="ft">
+  <div class="ft-art" id="ftArt" aria-hidden="true"><video src="footer-team.webm" width="1700" height="639" muted loop playsinline preload="none"></video><img src="footer-team.webp" width="1700" height="639" alt="" loading="lazy" decoding="async" hidden></div>
   <div class="wrap">
     <nav aria-label="フッターメニュー"><a href="#reel">REEL</a><a href="#works">WORKS</a><a href="#profile">PROFILE</a><a href="#news">NEWS</a><a href="#contact">CONTACT</a></nav>
     <a class="totop" href="#top" aria-label="ページの先頭へ"><svg viewBox="0 0 24 24"><path d="M4 16l8-8 8 8"/></svg></a>
