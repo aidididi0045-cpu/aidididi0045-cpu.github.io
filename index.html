@@ -996,9 +996,15 @@ function readShared(){
 }
 readShared();
 addEventListener('hashchange',()=>{ readShared(); window.ScrollTrigger&&ScrollTrigger.refresh(); });
-$('#showAll').addEventListener('click',e=>{ e.preventDefault(); e.stopPropagation();
+/* leaving the shared view: bring every section back, then let the scroll effects re-measure */
+function exitShared(){
+  if(!document.body.classList.contains('shared')) return false;
   try{ history.replaceState(null,'',location.pathname+location.search); }catch(err){}
-  document.body.classList.remove('shared'); $('#sharedNote').hidden=true; applyFilter({k:'all'}); scrollTo(0,0); },true);
+  document.body.classList.remove('shared'); $('#sharedNote').hidden=true; applyFilter({k:'all'});
+  $$('.card').forEach(c=>{ c.hidden=false; c.classList.remove('out'); });
+  lenis&&lenis.resize(); window.ScrollTrigger&&ScrollTrigger.refresh(); return true;
+}
+$('#showAll').addEventListener('click',e=>{ e.preventDefault(); e.stopPropagation(); exitShared(); scrollTo(0,0); lenis&&lenis.scrollTo(0,{immediate:true}); },true);
 
 /* ============================================================
    Menu, keys, links, copy
@@ -1011,7 +1017,10 @@ addEventListener('keydown',e=>{
   if(e.key===' ' && document.body.classList.contains('p-open') && document.activeElement!==$('#ptoggle')){ e.preventDefault(); $('#ptoggle').click(); }
 });
 document.addEventListener('click',e=>{ const a=e.target.closest('a[href^="#"]'); if(!a||a.dataset.w!==undefined) return;
-  e.preventDefault(); setMenu(false); const id=a.getAttribute('href'); scrollToEl(id==='#top'?document.body:$(id)); });
+  e.preventDefault(); setMenu(false); const id=a.getAttribute('href');
+  const go=()=>scrollToEl(id==='#top'?document.body:$(id));
+  if(exitShared()){ scrollTo(0,0); lenis&&lenis.scrollTo(0,{immediate:true}); if(id==='#top'||id==='#reel') return; setTimeout(()=>{ window.ScrollTrigger&&ScrollTrigger.refresh(); lenis&&lenis.resize(); go(); },150); }
+  else go(); });
 $('#copyBtn').onclick=()=>copyText($('#mail').textContent,$('#mail'),'コピーしました');
 
 /* ============================================================
