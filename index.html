@@ -1048,6 +1048,9 @@ document.addEventListener('click',e=>{ const a=e.target.closest('a[href^="#"]');
   const ua=navigator.userAgent, webkit=/AppleWebKit/.test(ua)&&!/Chrome|Chromium|Edg|OPR|Android/.test(ua);
   const still=()=>{ box.querySelectorAll('video,canvas').forEach(x=>x.remove()); im.hidden=false; };
   const watch=(play,pause)=>new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting?play():pause()),{rootMargin:'200px'}).observe(box);
+  // phones show the clip at about half size, so they get a copy drawn with a line twice as thick (same on-screen weight)
+  const sp=innerWidth<=760, ver=sp?'team-v13-sp':'team-v13';
+  if(sp){ v.src=ver+'.webm'; im.src=ver+'.webp'; }
   if(RM){ still(); return; }
   if(!webkit && v.canPlayType('video/webm; codecs="vp9"')){
     v.addEventListener('error',still,{once:true});
@@ -1064,7 +1067,7 @@ document.addEventListener('click',e=>{ const a=e.target.closest('a[href^="#"]');
   gl.bindTexture(gl.TEXTURE_2D,gl.createTexture());
   [[gl.TEXTURE_MIN_FILTER,gl.LINEAR],[gl.TEXTURE_MAG_FILTER,gl.LINEAR],[gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE],[gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE]].forEach(([k,x])=>gl.texParameteri(gl.TEXTURE_2D,k,x));
   const sv=document.createElement('video'); sv.muted=true; sv.loop=true; sv.playsInline=true; sv.setAttribute('playsinline',''); sv.setAttribute('muted',''); sv.preload='none';
-  sv.style.cssText='position:absolute;left:0;top:0;width:2px;height:2px;opacity:0;pointer-events:none'; sv.src='team-v13-stack.mp4';
+  sv.style.cssText='position:absolute;left:0;top:0;width:2px;height:2px;opacity:0;pointer-events:none'; sv.src=ver+'-stack.mp4';
   let on=false, drawn=false;
   const draw=()=>{ if(sv.readyState>=2){ gl.texImage2D(gl.TEXTURE_2D,0,gl.RGB,gl.RGB,gl.UNSIGNED_BYTE,sv); gl.clearColor(0,0,0,0); gl.clear(gl.COLOR_BUFFER_BIT); gl.drawArrays(gl.TRIANGLE_STRIP,0,4);
       if(!drawn){ drawn=true; cv.style.cssText=''; im.hidden=true; } }
