@@ -299,7 +299,8 @@ main{position:relative;z-index:2}
 .ft nav a{font-family:var(--f-en);font-weight:800;font-size:12px}
 .totop-row{position:relative;z-index:4;display:flex;justify-content:flex-end;padding-block:0 28px}
 /* footer: a little taller, with the back-to-top button on its right */
-.ft .wrap{min-height:110px;padding-top:20px;padding-bottom:calc(20px + env(safe-area-inset-bottom,0px))}
+.ft .wrap{flex-direction:column;justify-content:flex-start;gap:40px;min-height:0;padding-top:calc(min(760px,92vw) * .05 + 44px);padding-bottom:calc(36px + env(safe-area-inset-bottom,0px))}
+.ft nav{justify-content:center}   /* back-to-top button centred under the girls, menu centred below it */
 .ft .totop{flex:none;background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.6)}
 .ft .totop svg{stroke:#F0E8E8}
 .ft .totop:hover{background:rgba(255,255,255,.9)}
@@ -615,8 +616,8 @@ main{padding-top:0}
 <footer class="ft">
   <div class="ft-art" id="ftArt" aria-hidden="true"><video src="team-v12.webm" width="1700" height="644" muted loop playsinline preload="none"></video><img src="team-v12.webp" width="1700" height="644" alt="" loading="lazy" decoding="async" hidden></div>
   <div class="wrap">
-    <nav aria-label="フッターメニュー"><a href="#reel">REEL</a><a href="#works">WORKS</a><a href="#profile">PROFILE</a><a href="#news">NEWS</a><a href="#contact">CONTACT</a></nav>
     <a class="totop" href="#top" aria-label="ページの先頭へ"><svg viewBox="0 0 24 24"><path d="M4 16l8-8 8 8"/></svg></a>
+    <nav aria-label="フッターメニュー"><a href="#reel">REEL</a><a href="#works">WORKS</a><a href="#profile">PROFILE</a><a href="#news">NEWS</a><a href="#contact">CONTACT</a></nav>
   </div>
 </footer>
 
