@@ -270,7 +270,7 @@ main{position:relative;z-index:2}
   .news-list .circle-arw{width:44px;height:44px}
 }
 /* ---------- Contact & footer ---------- */
-.contact{padding-block:120px 160px;text-align:center}
+.contact{padding-block:120px 80px;text-align:center}
 .contact .sec-head{align-items:center}
 .contact p{margin:0 0 32px;font-weight:700}
 .clap{width:min(220px,50vw);aspect-ratio:1;margin:0 auto 40px;position:relative;display:grid;place-items:center}
@@ -291,6 +291,9 @@ main{position:relative;z-index:2}
 .ft nav{display:flex;flex-wrap:wrap;gap:8px 24px}
 .ft nav a{font-family:var(--f-en);font-weight:800;font-size:12px}
 .totop-row{position:relative;z-index:4;display:flex;justify-content:flex-end;padding-block:0 28px}
+/* illustration resting on the footer: its bottom edge tucks under the footer's wave */
+.ft-art{position:relative;z-index:1;width:min(1100px,92vw);margin:8px auto calc(min(1100px,92vw) * -.05);pointer-events:none}
+.ft-art img{display:block;width:100%;height:auto}
 .totop{width:60px;height:60px;border-radius:50%;display:grid;place-items:center;transition:background .3s,transform .4s var(--ease)}
 .totop svg{width:22px;height:22px;fill:none;stroke:var(--ink);stroke-width:2.6;transition:transform .5s var(--ease),stroke .3s}
 .totop:hover{background:var(--ink)}
@@ -597,6 +600,7 @@ main{padding-top:0}
     </div>
   </section>
   <div class="wrap totop-row"><a class="totop" href="#top" aria-label="ページの先頭へ"><svg viewBox="0 0 24 24"><path d="M4 16l8-8 8 8"/></svg></a></div>
+  <div class="ft-art" aria-hidden="true"><img src="footer-girls.webp" width="1680" height="650" alt="" loading="lazy" decoding="async"></div>
 </main>
 
 <footer class="ft">
