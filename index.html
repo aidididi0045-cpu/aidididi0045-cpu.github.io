@@ -614,7 +614,7 @@ main{padding-top:0}
 </main>
 
 <footer class="ft">
-  <div class="ft-art" id="ftArt" aria-hidden="true"><video src="team-v12.webm" width="1700" height="644" muted loop playsinline preload="none"></video><img src="team-v12.webp" width="1700" height="644" alt="" loading="lazy" decoding="async" hidden></div>
+  <div class="ft-art" id="ftArt" aria-hidden="true"><video src="team-v13.webm" width="1700" height="644" muted loop playsinline preload="none"></video><img src="team-v13.webp" width="1700" height="644" alt="" loading="lazy" decoding="async" hidden></div>
   <div class="wrap">
     <a class="totop" href="#top" aria-label="ページの先頭へ"><svg viewBox="0 0 24 24"><path d="M4 16l8-8 8 8"/></svg></a>
     <nav aria-label="フッターメニュー"><a href="#reel">REEL</a><a href="#works">WORKS</a><a href="#profile">PROFILE</a><a href="#news">NEWS</a><a href="#contact">CONTACT</a></nav>
@@ -1064,7 +1064,7 @@ document.addEventListener('click',e=>{ const a=e.target.closest('a[href^="#"]');
   gl.bindTexture(gl.TEXTURE_2D,gl.createTexture());
   [[gl.TEXTURE_MIN_FILTER,gl.LINEAR],[gl.TEXTURE_MAG_FILTER,gl.LINEAR],[gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE],[gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE]].forEach(([k,x])=>gl.texParameteri(gl.TEXTURE_2D,k,x));
   const sv=document.createElement('video'); sv.muted=true; sv.loop=true; sv.playsInline=true; sv.setAttribute('playsinline',''); sv.setAttribute('muted',''); sv.preload='none';
-  sv.style.cssText='position:absolute;left:0;top:0;width:2px;height:2px;opacity:0;pointer-events:none'; sv.src='team-v12-stack.mp4';
+  sv.style.cssText='position:absolute;left:0;top:0;width:2px;height:2px;opacity:0;pointer-events:none'; sv.src='team-v13-stack.mp4';
   let on=false, drawn=false;
   const draw=()=>{ if(sv.readyState>=2){ gl.texImage2D(gl.TEXTURE_2D,0,gl.RGB,gl.RGB,gl.UNSIGNED_BYTE,sv); gl.clearColor(0,0,0,0); gl.clear(gl.COLOR_BUFFER_BIT); gl.drawArrays(gl.TRIANGLE_STRIP,0,4);
       if(!drawn){ drawn=true; cv.style.cssText=''; im.hidden=true; } }
