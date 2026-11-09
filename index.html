@@ -658,6 +658,8 @@ try{ if('scrollRestoration' in history) history.scrollRestoration='manual'; }cat
 scrollTo(0,0);
 addEventListener('pageshow',e=>{ if(!e.persisted) scrollTo(0,0); });
 addEventListener('beforeunload',()=>scrollTo(0,0));
+addEventListener('pagehide',()=>scrollTo(0,0));
+addEventListener('load',()=>{ scrollTo(0,0); requestAnimationFrame(()=>scrollTo(0,0)); });
 
 (() => {
 /* ============================================================
@@ -1055,7 +1057,7 @@ document.addEventListener('click',e=>{ const a=e.target.closest('a[href^="#"]');
   const still=()=>{ box.querySelectorAll('video,canvas').forEach(x=>x.remove()); im.hidden=false; };
   const watch=(play,pause)=>new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting?play():pause()),{rootMargin:'200px'}).observe(box);
   // phones show the clip at about half size, so they get a copy drawn with a line twice as thick (same on-screen weight)
-  const sp=innerWidth<=760, ver=sp?'team-v14-sp':'team-v13';
+  const sp=innerWidth<=760, ver=sp?'team-v15-sp':'team-v13';
   if(sp){ v.src=ver+'.webm'; im.src=ver+'.webp'; }
   if(RM){ still(); return; }
   if(!webkit && v.canPlayType('video/webm; codecs="vp9"')){
@@ -1117,6 +1119,8 @@ tasks.forEach(t=>t.then(()=>{ done++; chain=chain.then(()=>drawTo(done/total)); 
 const allIn=Promise.race([Promise.all(tasks), new Promise(r=>setTimeout(r,9000))]);   // never wait forever
 allIn.then(()=>chain).then(()=>drawTo(1)).then(()=>{ intro.progress(1); leave(); });
 function leave(){
+  // iPhone Safari can put the old scroll position back late in the load; the curtain is still down here, so reset now
+  scrollTo(0,0); if(lenis){ try{ lenis.scrollTo(0,{immediate:true,force:true}); }catch(e){} }
   gsap.timeline()
     .to(ldChar,{y:-22,duration:.18,ease:'power2.out',yoyo:true,repeat:1})
     .to('.ld-panel',{yPercent:-115,duration:1.15,ease:'power4.inOut',stagger:.12},.3)
