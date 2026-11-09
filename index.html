@@ -293,7 +293,7 @@ main{position:relative;z-index:2}
 .totop-row{position:relative;z-index:4;display:flex;justify-content:flex-end;padding-block:0 28px}
 /* illustration resting on the footer: its bottom edge tucks under the footer's wave */
 .ft-art{position:relative;z-index:1;width:min(1100px,92vw);margin:8px auto calc(min(1100px,92vw) * -.05);pointer-events:none}
-.ft-art img{display:block;width:100%;height:auto}
+.ft-art img,.ft-art video{display:block;width:100%;height:auto;aspect-ratio:1700/639}
 /* footer: a little taller, with the back-to-top button on its right */
 .ft .wrap{min-height:120px;padding-top:24px;padding-bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 .ft .totop{flex:none;background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.6)}
@@ -605,7 +605,7 @@ main{padding-top:0}
       <div class="mail" id="mailRow"><code id="mail">aidididi0045@gmail.com</code><button class="copy" id="copyBtn">COPY</button></div>
     </div>
   </section>
-  <div class="ft-art" aria-hidden="true"><img src="footer-girls.webp" width="1692" height="657" alt="" loading="lazy" decoding="async"></div>
+  <div class="ft-art" id="ftArt" aria-hidden="true"><video src="footer-team.webm" width="1700" height="639" muted loop playsinline preload="none"></video><img src="footer-team.webp" width="1700" height="639" alt="" loading="lazy" decoding="async" hidden></div>
 </main>
 
 <footer class="ft">
@@ -1027,6 +1027,15 @@ document.addEventListener('click',e=>{ const a=e.target.closest('a[href^="#"]');
   const go=()=>scrollToEl(id==='#top'?document.body:$(id));
   if(exitShared()){ scrollTo(0,0); lenis&&lenis.scrollTo(0,{immediate:true}); if(id==='#top'||id==='#reel') return; setTimeout(()=>{ window.ScrollTrigger&&ScrollTrigger.refresh(); lenis&&lenis.resize(); go(); },150); }
   else go(); });
+/* footer illustration: a looping clip with a transparent background (VP9 alpha).
+   Safari / iOS cannot show that transparency, so they get the still picture instead. */
+(()=>{ const box=$('#ftArt'); if(!box) return; const v=box.querySelector('video'), im=box.querySelector('img');
+  const ua=navigator.userAgent, webkit=/AppleWebKit/.test(ua)&&!/Chrome|Chromium|Edg|OPR|Android/.test(ua);
+  const still=()=>{ v.remove(); im.hidden=false; };
+  if(webkit||RM||!v.canPlayType('video/webm; codecs="vp9"')){ still(); return; }
+  v.addEventListener('error',still,{once:true});
+  new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ if(v.preload==='none') v.preload='auto'; v.play().catch(()=>{}); } else v.pause(); }),{rootMargin:'200px'}).observe(box);
+})();
 $('#copyBtn').onclick=()=>copyText($('#mail').textContent,$('#mail'),'コピーしました');
 
 /* ============================================================
