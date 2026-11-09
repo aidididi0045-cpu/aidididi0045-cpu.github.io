@@ -294,6 +294,12 @@ main{position:relative;z-index:2}
 /* illustration resting on the footer: its bottom edge tucks under the footer's wave */
 .ft-art{position:relative;z-index:1;width:min(1100px,92vw);margin:8px auto calc(min(1100px,92vw) * -.05);pointer-events:none}
 .ft-art img{display:block;width:100%;height:auto}
+/* footer: a little taller, with the back-to-top button on its right */
+.ft .wrap{min-height:120px;padding-top:24px;padding-bottom:calc(20px + env(safe-area-inset-bottom,0px))}
+.ft .totop{flex:none;background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.6)}
+.ft .totop svg{stroke:#F0E8E8}
+.ft .totop:hover{background:rgba(255,255,255,.9)}
+.ft .totop:hover svg{stroke:#16093E}
 .totop{width:60px;height:60px;border-radius:50%;display:grid;place-items:center;transition:background .3s,transform .4s var(--ease)}
 .totop svg{width:22px;height:22px;fill:none;stroke:var(--ink);stroke-width:2.6;transition:transform .5s var(--ease),stroke .3s}
 .totop:hover{background:var(--ink)}
@@ -599,13 +605,13 @@ main{padding-top:0}
       <div class="mail" id="mailRow"><code id="mail">aidididi0045@gmail.com</code><button class="copy" id="copyBtn">COPY</button></div>
     </div>
   </section>
-  <div class="wrap totop-row"><a class="totop" href="#top" aria-label="ページの先頭へ"><svg viewBox="0 0 24 24"><path d="M4 16l8-8 8 8"/></svg></a></div>
   <div class="ft-art" aria-hidden="true"><img src="footer-girls.webp" width="1680" height="650" alt="" loading="lazy" decoding="async"></div>
 </main>
 
 <footer class="ft">
   <div class="wrap">
     <nav aria-label="フッターメニュー"><a href="#reel">REEL</a><a href="#works">WORKS</a><a href="#profile">PROFILE</a><a href="#news">NEWS</a><a href="#contact">CONTACT</a></nav>
+    <a class="totop" href="#top" aria-label="ページの先頭へ"><svg viewBox="0 0 24 24"><path d="M4 16l8-8 8 8"/></svg></a>
   </div>
 </footer>
 
