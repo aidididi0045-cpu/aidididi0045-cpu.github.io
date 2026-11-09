@@ -270,11 +270,17 @@ main{position:relative;z-index:2}
   .news-list .circle-arw{width:44px;height:44px}
 }
 /* ---------- Contact & footer ---------- */
-.contact{padding-block:120px 140px;text-align:center}
+.contact{padding-block:120px 160px;text-align:center}
 .contact .sec-head{align-items:center}
 .contact p{margin:0 0 32px;font-weight:700}
-.team-art{width:min(760px,100%);margin:0 auto 44px}
-.team-art img,.team-art video{display:block;width:100%;height:auto;aspect-ratio:1700/644}
+.clap{width:min(220px,50vw);aspect-ratio:1;margin:0 auto 40px;position:relative;display:grid;place-items:center}
+.clap-ico{position:relative;width:88%;animation:fly 2.6s ease-in-out infinite alternate}
+.clap-ico img{display:block;width:100%;height:auto}
+@keyframes fly{from{transform:translateY(-5%) rotate(-3deg)}to{transform:translateY(5%) rotate(2deg)}}
+.clap:hover .clap-ico{animation-duration:.9s}
+/* the five girls sit inside the navy footer, above its menu */
+.ft-art{position:relative;width:min(760px,92vw);margin:0 auto;padding-top:36px}
+.ft-art img,.ft-art video{display:block;width:100%;height:auto;aspect-ratio:1700/644}
 .mail{display:inline-flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:center}
 .mail code{font-family:var(--f-en);font-weight:800;font-size:clamp(18px,3vw,26px);user-select:all;padding:4px 10px;background:linear-gradient(var(--mark),var(--mark)) 0 85%/100% 40% no-repeat}
 .copy{font-family:var(--f-en);font-weight:800;font-size:13px;border:2px solid var(--ink);border-radius:99px;padding:6px 16px;transition:background .3s,color .3s}
@@ -289,7 +295,7 @@ main{position:relative;z-index:2}
 .ft nav a{font-family:var(--f-en);font-weight:800;font-size:12px}
 .totop-row{position:relative;z-index:4;display:flex;justify-content:flex-end;padding-block:0 28px}
 /* footer: a little taller, with the back-to-top button on its right */
-.ft .wrap{min-height:120px;padding-top:24px;padding-bottom:calc(20px + env(safe-area-inset-bottom,0px))}
+.ft .wrap{min-height:100px;padding-top:8px;padding-bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 .ft .totop{flex:none;background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.6)}
 .ft .totop svg{stroke:#F0E8E8}
 .ft .totop:hover{background:rgba(255,255,255,.9)}
@@ -592,7 +598,9 @@ main{padding-top:0}
   <section class="contact" id="contact">
     <div class="wrap">
       <div class="sec-head"><h2 class="oh" data-split>Contact</h2><span class="jp">お問い合わせ</span></div>
-      <div class="team-art" id="ftArt" aria-hidden="true"><video src="team-v7.webm" width="1700" height="644" muted loop playsinline preload="none"></video><img src="team-v7.webp" width="1700" height="644" alt="" loading="lazy" decoding="async" hidden></div>
+      <div class="clap" aria-hidden="true">
+        <div class="clap-ico"><img src="pigeon.webp" width="316" height="230" alt="" loading="lazy" decoding="async"></div>
+      </div>
       <p>映像制作のご依頼、ご相談はこちらからどうぞ。<br>企画段階からでもお気軽にご連絡ください。</p>
       <div class="mail" id="mailRow"><code id="mail">aidididi0045@gmail.com</code><button class="copy" id="copyBtn">COPY</button></div>
     </div>
@@ -600,6 +608,7 @@ main{padding-top:0}
 </main>
 
 <footer class="ft">
+  <div class="ft-art" id="ftArt" aria-hidden="true"><video src="team-v8.webm" width="1700" height="644" muted loop playsinline preload="none"></video><img src="team-v8.webp" width="1700" height="644" alt="" loading="lazy" decoding="async" hidden></div>
   <div class="wrap">
     <nav aria-label="フッターメニュー"><a href="#reel">REEL</a><a href="#works">WORKS</a><a href="#profile">PROFILE</a><a href="#news">NEWS</a><a href="#contact">CONTACT</a></nav>
     <a class="totop" href="#top" aria-label="ページの先頭へ"><svg viewBox="0 0 24 24"><path d="M4 16l8-8 8 8"/></svg></a>
@@ -1018,7 +1027,7 @@ document.addEventListener('click',e=>{ const a=e.target.closest('a[href^="#"]');
   const go=()=>scrollToEl(id==='#top'?document.body:$(id));
   if(exitShared()){ scrollTo(0,0); lenis&&lenis.scrollTo(0,{immediate:true}); if(id==='#top'||id==='#reel') return; setTimeout(()=>{ window.ScrollTrigger&&ScrollTrigger.refresh(); lenis&&lenis.resize(); go(); },150); }
   else go(); });
-/* contact illustration: a looping clip with a transparent background (VP9 alpha).
+/* footer illustration: a looping clip with a transparent background (VP9 alpha).
    Safari / iOS cannot show that transparency, so they get the still picture instead. */
 (()=>{ const box=$('#ftArt'); if(!box) return; const v=box.querySelector('video'), im=box.querySelector('img');
   const ua=navigator.userAgent, webkit=/AppleWebKit/.test(ua)&&!/Chrome|Chromium|Edg|OPR|Android/.test(ua);
@@ -1122,7 +1131,7 @@ $$('.news-list li').forEach(li=>gsap.timeline({scrollTrigger:{trigger:li,start:'
   .from(li.querySelector('.circle-arw'),{scale:0,rotate:-180,duration:.7,ease:'back.out(2)'},.45));
 
 // Contact
-gsap.from('.team-art',{y:40,opacity:0,duration:1,ease:'power3.out',scrollTrigger:{trigger:'.team-art',start:'top 88%'}});
+gsap.from('.clap',{scale:.3,rotate:-120,opacity:0,duration:1.2,ease:'back.out(1.6)',scrollTrigger:{trigger:'.clap',start:'top 85%'}});
 gsap.from('.contact p, #mailRow',{y:30,opacity:0,stagger:.12,duration:.8,ease:'power3.out',scrollTrigger:{trigger:'.contact p',start:'top 90%'}});
 
 // Header stays on screen at all times
