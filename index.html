@@ -270,7 +270,7 @@ main{position:relative;z-index:2}
   .news-list .circle-arw{width:44px;height:44px}
 }
 /* ---------- Contact & footer ---------- */
-.contact{padding-block:120px 160px;text-align:center}
+.contact{padding-block:120px 72px;text-align:center}
 .contact .sec-head{align-items:center}
 .contact p{margin:0 0 32px;font-weight:700}
 .clap{width:min(220px,50vw);aspect-ratio:1;margin:0 auto 40px;position:relative;display:grid;place-items:center}
@@ -278,8 +278,9 @@ main{position:relative;z-index:2}
 .clap-ico img{display:block;width:100%;height:auto}
 @keyframes fly{from{transform:translateY(-5%) rotate(-3deg)}to{transform:translateY(5%) rotate(2deg)}}
 .clap:hover .clap-ico{animation-duration:.9s}
-/* the five girls sit inside the navy footer, above its menu */
-.ft-art{position:relative;width:min(760px,92vw);margin:0 auto;padding-top:36px}
+/* the five girls stand on the footer: drawn in front of it, their bottom edge overlapping the wave */
+.ft-art-space{--aw:min(760px,92vw);height:calc(var(--aw) * 644 / 1700 - var(--aw) * .05)}
+.ft-art{--aw:min(760px,92vw);position:absolute;z-index:2;left:50%;bottom:calc(100% - var(--aw) * .05);width:var(--aw);translate:-50% 0;pointer-events:none}
 .ft-art img,.ft-art video{display:block;width:100%;height:auto;aspect-ratio:1700/644}
 .mail{display:inline-flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:center}
 .mail code{font-family:var(--f-en);font-weight:800;font-size:clamp(18px,3vw,26px);user-select:all;padding:4px 10px;background:linear-gradient(var(--mark),var(--mark)) 0 85%/100% 40% no-repeat}
@@ -295,7 +296,7 @@ main{position:relative;z-index:2}
 .ft nav a{font-family:var(--f-en);font-weight:800;font-size:12px}
 .totop-row{position:relative;z-index:4;display:flex;justify-content:flex-end;padding-block:0 28px}
 /* footer: a little taller, with the back-to-top button on its right */
-.ft .wrap{min-height:100px;padding-top:8px;padding-bottom:calc(20px + env(safe-area-inset-bottom,0px))}
+.ft .wrap{min-height:110px;padding-top:20px;padding-bottom:calc(20px + env(safe-area-inset-bottom,0px))}
 .ft .totop{flex:none;background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.6)}
 .ft .totop svg{stroke:#F0E8E8}
 .ft .totop:hover{background:rgba(255,255,255,.9)}
@@ -605,10 +606,11 @@ main{padding-top:0}
       <div class="mail" id="mailRow"><code id="mail">aidididi0045@gmail.com</code><button class="copy" id="copyBtn">COPY</button></div>
     </div>
   </section>
+  <div class="ft-art-space" aria-hidden="true"></div>
 </main>
 
 <footer class="ft">
-  <div class="ft-art" id="ftArt" aria-hidden="true"><video src="team-v9.webm" width="1700" height="644" muted loop playsinline preload="none"></video><img src="team-v9.webp" width="1700" height="644" alt="" loading="lazy" decoding="async" hidden></div>
+  <div class="ft-art" id="ftArt" aria-hidden="true"><video src="team-v10.webm" width="1700" height="644" muted loop playsinline preload="none"></video><img src="team-v10.webp" width="1700" height="644" alt="" loading="lazy" decoding="async" hidden></div>
   <div class="wrap">
     <nav aria-label="フッターメニュー"><a href="#reel">REEL</a><a href="#works">WORKS</a><a href="#profile">PROFILE</a><a href="#news">NEWS</a><a href="#contact">CONTACT</a></nav>
     <a class="totop" href="#top" aria-label="ページの先頭へ"><svg viewBox="0 0 24 24"><path d="M4 16l8-8 8 8"/></svg></a>
