@@ -135,7 +135,10 @@ main{position:relative;z-index:2}
 @media (max-width:760px){
   .hero-top{padding-left:28px;padding-right:28px;padding-bottom:28px;row-gap:16px}
   .roles{padding-bottom:0}
-  .reel{height:calc(100vw * .78)}   /* close to 16:9 once widened, so the film is barely zoomed */
+  /* phones: a square film sitting in the navy first view; the navy itself ends in the wave */
+  .reel{height:calc(100vw - 56px);min-height:0;-webkit-mask:none;mask:none}   /* square as first seen (28px side margins) */
+  .hero{background:var(--navy);padding-bottom:32px}
+  .hero::after{content:"";position:absolute;left:0;right:0;top:calc(100% - 1px);height:14px;z-index:1;background:var(--navy);-webkit-mask:var(--wave) repeat-x 0 0/44px 14px;mask:var(--wave) repeat-x 0 0/44px 14px;pointer-events:none}
   .reel{clip-path:inset(0 28px round 28px 28px 0 0)}
   .hero h1{font-size:calc((100vw - 56px) / 7.6)}
 }
