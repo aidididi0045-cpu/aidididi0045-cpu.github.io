@@ -653,6 +653,12 @@ main{padding-top:0}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
 <script>
+/* a reload always starts from the first view (the browser would otherwise jump back to where you were) */
+try{ if('scrollRestoration' in history) history.scrollRestoration='manual'; }catch(e){}
+scrollTo(0,0);
+addEventListener('pageshow',e=>{ if(!e.persisted) scrollTo(0,0); });
+addEventListener('beforeunload',()=>scrollTo(0,0));
+
 (() => {
 /* ============================================================
    CONTENT — edit here
@@ -1049,7 +1055,7 @@ document.addEventListener('click',e=>{ const a=e.target.closest('a[href^="#"]');
   const still=()=>{ box.querySelectorAll('video,canvas').forEach(x=>x.remove()); im.hidden=false; };
   const watch=(play,pause)=>new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting?play():pause()),{rootMargin:'200px'}).observe(box);
   // phones show the clip at about half size, so they get a copy drawn with a line twice as thick (same on-screen weight)
-  const sp=innerWidth<=760, ver=sp?'team-v13-sp':'team-v13';
+  const sp=innerWidth<=760, ver=sp?'team-v14-sp':'team-v13';
   if(sp){ v.src=ver+'.webm'; im.src=ver+'.webp'; }
   if(RM){ still(); return; }
   if(!webkit && v.canPlayType('video/webm; codecs="vp9"')){
