@@ -13,7 +13,7 @@
 <style>:root{color-scheme:light;padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}body{margin:0;font:14px/1.5 system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@500;700;800;900&family=Noto+Sans+JP:wght@400;500;700;900&family=JetBrains+Mono:wght@500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@500;700;800;900&family=Noto+Sans+JP:wght@500;700;900&family=JetBrains+Mono:wght@500;700&display=swap">
 </head>
 <body>
 <style>
@@ -279,8 +279,6 @@ main{position:relative;z-index:2}
 .clap{width:min(220px,50vw);aspect-ratio:1;margin:0 auto 40px;position:relative;display:grid;place-items:center}
 .clap-ico{position:relative;width:78%}   /* the walking cat moves by itself, so no extra floating */
 .clap-ico img{display:block;width:100%;height:auto}
-@keyframes fly{from{transform:translateY(-5%) rotate(-3deg)}to{transform:translateY(5%) rotate(2deg)}}
-.clap:hover .clap-ico{animation-duration:.9s}
 /* the five girls stand on the footer: drawn in front of it, their bottom edge overlapping the wave */
 .ft-art-space{--aw:min(760px,92vw);height:calc(var(--aw) * 644 / 1700 - var(--aw) * .05)}
 .ft-art{--aw:min(760px,92vw);position:absolute;z-index:2;left:50%;bottom:calc(100% - var(--aw) * .05);width:var(--aw);translate:-50% 0;pointer-events:none}
@@ -297,7 +295,6 @@ main{position:relative;z-index:2}
 .ft .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:72px;padding-bottom:env(safe-area-inset-bottom,0px)}
 .ft nav{display:flex;flex-wrap:wrap;gap:8px 24px}
 .ft nav a{font-family:var(--f-en);font-weight:800;font-size:12px}
-.totop-row{position:relative;z-index:4;display:flex;justify-content:flex-end;padding-block:0 28px}
 /* footer: a little taller, with the back-to-top button on its right */
 .ft .wrap{flex-direction:column;justify-content:flex-start;gap:40px;min-height:0;padding-top:calc(min(760px,92vw) * .05 + 44px);padding-bottom:calc(36px + env(safe-area-inset-bottom,0px))}
 .ft nav{justify-content:center}   /* back-to-top button centred under the girls, menu centred below it */
@@ -604,7 +601,7 @@ main{padding-top:0}
     <div class="wrap">
       <div class="sec-head"><h2 class="oh" data-split>Contact</h2><span class="jp">お問い合わせ</span></div>
       <div class="clap" aria-hidden="true">
-        <div class="clap-ico"><img src="cat.webp" width="400" height="452" alt="" loading="lazy" decoding="async"></div>
+        <div class="clap-ico"><img data-src="cat.webp" width="400" height="452" alt="" decoding="async"></div>
       </div>
       <p>映像制作のご依頼、ご相談はこちらからどうぞ。<br>企画段階からでもお気軽にご連絡ください。</p>
       <div class="mail" id="mailRow"><code id="mail">aidididi0045@gmail.com</code><button class="copy" id="copyBtn">COPY</button></div>
@@ -718,7 +715,7 @@ const rnd  = (a,b) => a+Math.random()*(b-a);
 const ARROW = '<svg viewBox="0 0 20 14"><path d="M1 7h17M12 1l6 6-6 6"/></svg>';
 const STAR = '<svg viewBox="0 0 24 24"><path d="M12 20.6C7.6 17.6 2.6 13.8 2.6 9.1 2.6 6.1 4.9 3.8 7.7 3.8c1.8 0 3.3.9 4.3 2.4 1-1.5 2.5-2.4 4.3-2.4 2.8 0 5.1 2.3 5.1 5.3 0 4.7-5 8.5-9.4 11.5z"/></svg>';
 const screen = (o,i=0) => `<div class="screen v${i%3}">${o.src
-  ? `<video${o.poster?` poster="${o.poster}"`:''} muted loop playsinline webkit-playsinline preload="none">${o.webm?`<source data-src="${o.webm}" type='video/webm; codecs="vp9"'>`:''}<source data-src="${o.src}" type="video/mp4"></video>`
+  ? `<video${o.poster?` data-poster="${o.poster}"`:''} muted loop playsinline webkit-playsinline preload="none">${o.webm?`<source data-src="${o.webm}" type='video/webm; codecs="vp9"'>`:''}<source data-src="${o.src}" type="video/mp4"></video>`
   : o.poster ? `<img src="${o.poster}" alt="" loading="lazy" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">` : ''}</div>`;
 const metaHTML = w => [['TYPE',typeLabel(w.type)],['CLIENT',w.client],['ROLE',w.role],['YEAR',w.y],['LENGTH',w.dur?mmss(w.dur):'']].filter(([,v])=>v!=='').map(([k,v])=>`<div><dt>${k}</dt><dd>${v}</dd></div>`).join('');
 let tt; const toast = m => { const t=$('#toast'); t.textContent=m; t.classList.add('on'); clearTimeout(tt); tt=setTimeout(()=>t.classList.remove('on'),2000); };
@@ -727,6 +724,9 @@ const copyText = (text, sel, ok) => { const fb=()=>{ const r=document.createRang
 
 /* Videos load only when they are about to play (phones cap how many can load/decode at once) */
 // each clip may carry a lighter WebM; the browser picks it if it can play it, otherwise the MP4
+/* posters are fetched only when their screen comes near the viewport (they used to all download at start) */
+const posterIO = 'IntersectionObserver' in window ? new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ const v=e.target; v.poster=v.dataset.poster; posterIO.unobserve(v); } }),{rootMargin:'600px 600px'}) : null;
+const observePosters = () => $$('video[data-poster]:not([poster])').forEach(v=>{ if(v._po) return; v._po=1; posterIO ? posterIO.observe(v) : (v.poster=v.dataset.poster); });
 const load = v => { if(v && !v.dataset.on){ v.dataset.on=1; v.muted=true; v.querySelectorAll('source').forEach(x=>x.src=x.dataset.src); v.load(); } return v; };
 const whenReady = (v,fn) => { if(v.readyState>=1 && v.duration) fn(); else v.addEventListener('loadedmetadata',fn,{once:true}); };
 /* play / stop any screen (real <video> or placeholder shapes) */
@@ -768,7 +768,7 @@ const cutTo = n => { const c=cuts[n], v=load(c.querySelector('video')); if(v && 
   play(c.querySelector('.screen')); };
 const nextCut = () => { if(!reelLive || cuts.length<2) return; cutTo(Math.floor(Math.random()*cuts.length)); cutTimer=setTimeout(nextCut,rnd(900,2200)); };
 const setReelLive = on => { if(on===reelLive) return; reelLive=on; clearTimeout(cutTimer); if(on){ play(cuts[cutIdx].querySelector('.screen')); cutTimer=setTimeout(nextCut,1200); } else stop(cuts[cutIdx].querySelector('.screen')); };
-{ const v0=load(cuts[0].querySelector('video')); if(v0){ v0.preload='auto'; } }
+{ const v0=load(cuts[0].querySelector('video')); if(v0){ v0.preload='auto'; if(v0.dataset.poster) v0.poster=v0.dataset.poster; } }
 cutTo(0); if(!RM) cutTimer=setTimeout(nextCut,2600);
 
 /* Phones: size the headline so its longest line spans exactly the reel's width */
@@ -881,14 +881,25 @@ function go(i){
     const j=mod(cur)+PN, v=items[cur].querySelector('video'), t=v?v.currentTime:0;
     stop(items[cur].querySelector('.screen'),true); items.forEach(e=>e.style.transition='none'); mark(j); cur=j; place(j,false);
     requestAnimationFrame(()=>items.forEach(e=>e.style.transition='')); play(items[j].querySelector('.screen'),t); },1050);
-  if(!RM) auto=setTimeout(()=>go(cur+1),6000);
+  if(!RM && carVis) auto=setTimeout(()=>go(cur+1),6000);
+}
+let carSeen=false, carVis=false;
+function startCar(){
+  if(!('IntersectionObserver' in window)){ carVis=true; go(PN); return; }
+  new IntersectionObserver(es=>es.forEach(e=>{ carVis=e.isIntersecting;
+    if(carVis){ if(!carSeen){ carSeen=true; go(PN); } else { play(items[cur].querySelector('.screen')); clearTimeout(auto); if(!RM) auto=setTimeout(()=>go(cur+1),6000); } }
+    else { clearTimeout(auto); if(carSeen) stop(items[cur].querySelector('.screen'),true); } }),{rootMargin:'120px'}).observe($('.pickup'));
 }
 $('#prev').onclick=()=>go(cur-1); $('#next').onclick=()=>go(cur+1);
 $('#carDots').addEventListener('click',e=>{ const j=dots.indexOf(e.target.closest('button')); if(j>=0&&j!==mod(cur)) go(cur+(j-mod(cur))); });
 track.addEventListener('click',e=>{ const it=e.target.closest('.car-item'); if(it&&!it.classList.contains('on')){ e.preventDefault(); go(items.indexOf(it)); } });
 { let x0=null; track.addEventListener('pointerdown',e=>x0=e.clientX);
   addEventListener('pointerup',e=>{ if(x0===null) return; const d=e.clientX-x0; x0=null; if(Math.abs(d)>50) go(cur+(d<0?1:-1)); }); }
+observePosters();
 mark(cur); place(cur,false);
+/* the walking cat (an animated image, ~0.4MB) is fetched only when Contact comes near */
+{ const ci=$('.clap-ico img[data-src]'); if(ci){ const show=()=>{ ci.src=ci.dataset.src; };
+  'IntersectionObserver' in window ? new IntersectionObserver((es,o)=>{ if(es.some(e=>e.isIntersecting)){ show(); o.disconnect(); } },{rootMargin:'400px'}).observe(ci.closest('.clap')) : show(); } }
 { const w=works[pickIdx[0]]; $('#carTitle').textContent=w.t; $('#carMeta').textContent=`${typeLabel(w.type)} | ${w.y}`; dots[0]&&dots[0].classList.add('on'); }
 ['resize','load'].forEach(ev=>addEventListener(ev,()=>place(cur,false))); document.fonts&&document.fonts.ready.then(()=>place(cur,false));
 
@@ -899,7 +910,7 @@ const sTrack=$('#shortsTrack'); let sx0=0, sVel=0, sDrag=false, sCap=false, sMov
 let sIO=null;
 const observeShorts = () => sIO && $$('.short .screen').forEach(x=>{ if(!x._o){ x._o=1; sIO.observe(x); } });
 const measure = () => { const it=sTrack.children; sSet=it[shorts.length].offsetLeft-it[0].offsetLeft;
-  while(sSet && sTrack.scrollWidth < sSet+innerWidth+40) sTrack.insertAdjacentHTML('beforeend',shortHTML); observeShorts(); };
+  while(sSet && sTrack.scrollWidth < sSet+innerWidth+40) sTrack.insertAdjacentHTML('beforeend',shortHTML); observeShorts(); observePosters(); };
 measure(); ['resize','load'].forEach(ev=>addEventListener(ev,measure)); document.fonts&&document.fonts.ready.then(measure);
 let sOn=true;
 (function sLoop(now){
@@ -1089,7 +1100,7 @@ $('#copyBtn').onclick=()=>copyText($('#mail').textContent,$('#mail'),'コピー�
 /* ============================================================
    Motion (GSAP)
    ============================================================ */
-if(!HAS){ $('#loader').remove(); go(PN); return; }
+if(!HAS){ $('#loader').remove(); startCar(); return; }
 gsap.registerPlugin(ScrollTrigger);
 const rf=$('#reelFrame');
 // the reel's side margins match the headline's left edge (the .wrap content edge)
@@ -1135,7 +1146,7 @@ function leave(){
         {yPercent:-2,scaleX:1.05,scaleY:1.05,duration:.38,ease:'expo.out'},
         {yPercent:0,scaleX:1,scaleY:1,duration:.55,ease:'power3.out'}],immediateRender:true},'-=.75')
     .from('#reelPlay',{scale:0,rotate:-180,duration:.7,ease:'back.out(1.8)'},'-=.35')
-    .add(()=>go(PN));
+    .add(()=>startCar());
 }
 
 // The reel's sides close up exactly as its lower edge comes into view
