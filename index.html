@@ -733,8 +733,11 @@ const copyText = (text, sel, ok) => { const fb=()=>{ const r=document.createRang
 /* Videos load only when they are about to play (phones cap how many can load/decode at once) */
 // each clip may carry a lighter WebM; the browser picks it if it can play it, otherwise the MP4
 /* posters are fetched only when their screen comes near the viewport (they used to all download at start) */
-const posterIO = 'IntersectionObserver' in window ? new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ const v=e.target; v.poster=v.dataset.poster; posterIO.unobserve(v); } }),{rootMargin:'600px 600px'}) : null;
+const posterIO = 'IntersectionObserver' in window ? new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ const v=e.target; v.poster=v.dataset.poster; posterIO.unobserve(v); } }),{rootMargin:'1600px 800px'}) : null;
 const observePosters = () => $$('video[data-poster]:not([poster])').forEach(v=>{ if(v._po) return; v._po=1; posterIO ? posterIO.observe(v) : (v.poster=v.dataset.poster); });
+/* once the first view has settled, fetch every remaining poster quietly, so thumbnails are already there when you scroll */
+addEventListener('load',()=>setTimeout(()=>{ const rest=$$('video[data-poster]:not([poster])'); let k=0;
+  const next=()=>{ const v=rest[k++]; if(!v) return; if(!v.getAttribute('poster')) v.poster=v.dataset.poster; setTimeout(next,120); }; next(); },1500));
 const load = v => { if(v && !v.dataset.on){ v.dataset.on=1; v.muted=true; v.querySelectorAll('source').forEach(x=>x.src=x.dataset.src); v.load(); } return v; };
 const whenReady = (v,fn) => { if(v.readyState>=1 && v.duration) fn(); else v.addEventListener('loadedmetadata',fn,{once:true}); };
 /* play / stop any screen (real <video> or placeholder shapes) */
