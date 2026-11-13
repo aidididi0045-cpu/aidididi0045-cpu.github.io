@@ -401,7 +401,8 @@ let carX=d.clientWidth+20, carV=0, carY=scrollY, carOn=false;
 new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting && !carOn){ carX=d.clientWidth+20; carV=0; gsap.set(car,{x:carX}); } carOn=e.isIntersecting; })).observe(d);
 gsap.set(car,{x:carX});
 gsap.ticker.add((t,dt)=>{ if(!carOn){ carY=scrollY; return; } const f=Math.min(dt,50)/16.67, dy=Math.abs(scrollY-carY); carY=scrollY;
-carV+= ((RM?0:1.6) + Math.min(dy,80)*.9 - carV)*.12*f;
+const sp=innerWidth<=760;   // phones: the screen is narrow and a flick scrolls far, so scrolling speeds the car up much less
+carV+= ((RM?0:(sp?1.1:1.6)) + Math.min(dy,sp?40:80)*(sp?.3:.9) - carV)*.12*f;
 carX-=carV*f; if(carX < -car.offsetWidth-40) carX=d.clientWidth+20;
 gsap.set(car,{x:carX}); });
 // exhaust puffs while the strip is on screen; more of them while the page is scrolling
