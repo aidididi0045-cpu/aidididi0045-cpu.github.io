@@ -910,8 +910,9 @@ mark(cur); place(cur,false);
     const show=()=>{ if(!car.getAttribute('src')) car.src=car.dataset.src; };
     'IntersectionObserver' in window ? new IntersectionObserver((es,o)=>{ if(es.some(e=>e.isIntersecting)){ show(); o.disconnect(); } },{rootMargin:'600px'}).observe(d) : show();
     // always drives right → left: a gentle cruise, sped up by scrolling in either direction; loops back in from the right
-    let carX=d.clientWidth*.55, carV=0, carY=scrollY, carOn=false;
-    new IntersectionObserver(es=>es.forEach(e=>carOn=e.isIntersecting),{rootMargin:'200px'}).observe(d);
+    let carX=d.clientWidth+20, carV=0, carY=scrollY, carOn=false;
+    // every time the strip comes into view the car starts just off the right edge, so you see it drive in
+    new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting && !carOn){ carX=d.clientWidth+20; carV=0; gsap.set(car,{x:carX}); } carOn=e.isIntersecting; })).observe(d);
     gsap.set(car,{x:carX});
     gsap.ticker.add((t,dt)=>{ if(!carOn){ carY=scrollY; return; } const f=Math.min(dt,50)/16.67, dy=Math.abs(scrollY-carY); carY=scrollY;
       carV+= ((RM?0:1.6) + Math.min(dy,80)*.9 - carV)*.12*f;
