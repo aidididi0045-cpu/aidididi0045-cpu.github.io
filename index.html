@@ -213,6 +213,9 @@ main{position:relative;z-index:2}
 .card:hover h3{background-size:100% 40%}
 .shared .hero,.shared .pickup,.shared .shorts-sec,.shared .profile,.shared #news,.shared #tabs,.shared .fav-wrap{display:none}
 /* ---------- Shorts strip ---------- */
+/* ---------- A little car driving across between Pick up and Works (moves right → left with the scroll) ---------- */
+.drive{position:relative;height:clamp(150px,22vw,260px);margin-top:48px;overflow:hidden;pointer-events:none}
+.drive-car{position:absolute;left:0;bottom:0;width:clamp(220px,30vw,420px);height:auto;max-width:none;will-change:transform}
 .shorts-sec{padding-top:120px}
 .shorts{position:relative;overflow:hidden;padding-block:28px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='1 0 0 0 -.432  1 0 0 0 -.5  1.05 0 0 0 -.285  0 0 0 0 1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),#16093E;border-block:var(--pen) solid #16093E}
 .shorts::before,.shorts::after{content:"";position:absolute;left:0;right:0;height:10px;background:repeating-linear-gradient(90deg,var(--white) 0 14px,transparent 14px 28px);opacity:.9;z-index:2}
@@ -543,6 +546,7 @@ main{padding-top:0}
     </div>
   </section>
 
+  <div class="drive" id="drive" aria-hidden="true"><img class="drive-car" data-src="car.webp" width="840" height="453" alt="" decoding="async"></div>
   <section class="sec" id="works">
     <div class="wrap">
       <div class="sec-head"><h2 class="oh" data-split>Works</h2><span class="jp">作品一覧</span></div>
@@ -897,6 +901,14 @@ track.addEventListener('click',e=>{ const it=e.target.closest('.car-item'); if(i
   addEventListener('pointerup',e=>{ if(x0===null) return; const d=e.clientX-x0; x0=null; if(Math.abs(d)>50) go(cur+(d<0?1:-1)); }); }
 observePosters();
 mark(cur); place(cur,false);
+/* the car: fetched when it is near, then driven across by the scroll (enters from the right edge, leaves past the left) */
+{ const d=$('#drive'), car=$('#drive .drive-car');
+  if(d&&car){
+    const show=()=>{ if(!car.getAttribute('src')) car.src=car.dataset.src; };
+    'IntersectionObserver' in window ? new IntersectionObserver((es,o)=>{ if(es.some(e=>e.isIntersecting)){ show(); o.disconnect(); } },{rootMargin:'600px'}).observe(d) : show();
+    gsap.fromTo(car,{x:()=>d.clientWidth},{x:()=>-car.offsetWidth,ease:'none',
+      scrollTrigger:{trigger:d,start:'top bottom',end:'bottom top',scrub:.6,invalidateOnRefresh:true}});
+  } }
 /* the walking cat (an animated image, ~0.4MB) is fetched only when Contact comes near */
 { const ci=$('.clap-ico img[data-src]'); if(ci){ const show=()=>{ ci.src=ci.dataset.src; };
   'IntersectionObserver' in window ? new IntersectionObserver((es,o)=>{ if(es.some(e=>e.isIntersecting)){ show(); o.disconnect(); } },{rootMargin:'400px'}).observe(ci.closest('.clap')) : show(); } }
