@@ -1201,7 +1201,7 @@ gsap.to('#bigword',{xPercent:-30,ease:'none',scrollTrigger:{trigger:'#profPanel'
 const scrollSpin=(sel,from)=>{ const el=$(sel); if(!el) return;
   gsap.fromTo(el,{rotate:from.rotate,scale:from.scale,opacity:from.opacity??1},{rotate:0,scale:1,opacity:1,ease:'power2.out',
     scrollTrigger:{trigger:el,start:'top bottom',end:'center 55%',scrub:.5}}); };
-scrollSpin('.avatar',{rotate:-200,scale:.2});
+scrollSpin('.avatar',{rotate:-200,scale:.2,opacity:0});
 
 // News rows
 $$('.news-list li').forEach(li=>gsap.timeline({scrollTrigger:{trigger:li,start:'top 90%'}})
