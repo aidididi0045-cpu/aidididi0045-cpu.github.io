@@ -1200,8 +1200,8 @@ gsap.to('#bigword',{xPercent:-30,ease:'none',scrollTrigger:{trigger:'#profPanel'
    Scroll faster and it turns faster; stop and it stops. Once past the middle it stays still. */
 const scrollSpin=(sel,from,start='top bottom',end='center 55%')=>{ const el=$(sel); if(!el) return;
   gsap.fromTo(el,{rotate:from.rotate,scale:from.scale,opacity:from.opacity??1},{rotate:0,scale:1,opacity:1,ease:'power2.out',
-    scrollTrigger:{trigger:el,start,end,scrub:.4}}); };
-scrollSpin('.avatar',{rotate:-200,scale:.2,opacity:0},'top 125%','center 70%');   // same length of motion, just begun earlier in the scroll
+    scrollTrigger:{trigger:el,start,end,scrub:.4,refreshPriority:-1}}); };   // measured after any pinned sections above
+scrollSpin('.avatar',{rotate:-160,scale:.3,opacity:0},'top 112%','center 78%');   // same motion as the cat; the window is shifted because the card it sits in is still rising, so on screen it turns in step with the cat
 
 // News rows
 $$('.news-list li').forEach(li=>gsap.timeline({scrollTrigger:{trigger:li,start:'top 90%'}})
