@@ -1198,10 +1198,10 @@ gsap.from('#profCard',{yPercent:40,scale:.85,ease:'none',scrollTrigger:{trigger:
 gsap.to('#bigword',{xPercent:-30,ease:'none',scrollTrigger:{trigger:'#profPanel',start:'top bottom',end:'bottom top',scrub:true}});
 /* tied to the scroll itself: spins in as it rises from the bottom of the screen and settles by the middle.
    Scroll faster and it turns faster; stop and it stops. Once past the middle it stays still. */
-const scrollSpin=(sel,from,end='center 55%')=>{ const el=$(sel); if(!el) return;
+const scrollSpin=(sel,from,start='top bottom',end='center 55%')=>{ const el=$(sel); if(!el) return;
   gsap.fromTo(el,{rotate:from.rotate,scale:from.scale,opacity:from.opacity??1},{rotate:0,scale:1,opacity:1,ease:'power2.out',
-    scrollTrigger:{trigger:el,start:'top bottom',end,scrub:.3}}); };
-scrollSpin('.avatar',{rotate:-200,scale:.2,opacity:0},'center 75%');   // fully turned and solid well before the middle
+    scrollTrigger:{trigger:el,start,end,scrub:.4}}); };
+scrollSpin('.avatar',{rotate:-200,scale:.2,opacity:0},'top 125%','center 70%');   // same length of motion, just begun earlier in the scroll
 
 // News rows
 $$('.news-list li').forEach(li=>gsap.timeline({scrollTrigger:{trigger:li,start:'top 90%'}})
