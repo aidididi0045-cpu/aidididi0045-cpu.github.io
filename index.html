@@ -326,6 +326,16 @@ main{position:relative;z-index:2}
 .player.vertical .frame{aspect-ratio:9/16;height:min(64vh,calc((100vw - 32px)*16/9));max-height:none;width:auto;align-self:center}
 .player.vertical .p-info{grid-template-columns:1fr}
 .player.vimeo .ctrl{display:none}
+.player.xpost .ctrl{display:none}
+.player.xpost .player-box{width:min(560px,100%)}
+.player.xpost .frame{aspect-ratio:auto;max-height:none;height:min(70vh,760px);overflow-y:auto;overscroll-behavior:contain;background:#000;-webkit-overflow-scrolling:touch}
+.xwrap{min-height:100%;display:flex;justify-content:center;align-items:flex-start;padding:4px 0}
+.xwrap .twitter-tweet{margin:0!important}
+.xload{align-self:center;margin:auto;color:rgba(255,255,255,.7);font-size:13px;font-weight:700}
+.xfall{position:relative;display:block;width:100%;align-self:center}
+.xfall img{display:block;width:100%;height:auto;max-height:60vh;object-fit:contain}
+.xfall span{position:absolute;left:50%;top:50%;translate:-50% -50%;padding:10px 20px;border-radius:99px;background:rgba(255,255,255,.9);color:#16093E;font-weight:800;font-size:14px;white-space:nowrap}
+.p-info dd a{text-decoration:underline;text-underline-offset:3px}
 .ctrl{display:flex;align-items:center;gap:16px}
 .ctrl button{width:44px;height:44px;border:2px solid var(--white);border-radius:50%;display:grid;place-items:center;flex:none;transition:background .3s}
 .ctrl svg{width:16px;height:16px;fill:var(--white)}
@@ -688,11 +698,11 @@ const works = [
 const pickIdx = [0,1,2,3,4];            // works shown in PICK UP (by index)
 // wide:true = 横型のまま帯に並ぶ
 const shorts = [
-  {t:'Demons cafe DEMONICA',  type:'3D風アニメーション', role:'アニメーション', client:'オリジナル', y:2026, dur:18, src:'demonica-v2.mp4',  poster:'demonica-v2.jpg',  vimeo:''},
-  {t:'CREATION',              type:'2Dアニメーション',   role:'アニメーション', client:'オリジナル', y:2026, dur:8,  src:'creation-v2.mp4',  poster:'creation-v2.jpg',  vimeo:'', wide:true},
-  {t:'浮遊ガール',            type:'2Dアニメーション',   role:'アニメーション', client:'オリジナル', y:2026, dur:6,  src:'floating-v2.mp4',  poster:'floating-v2.jpg',  vimeo:''},
-  {t:'ミラクルキャット☆ミル', type:'2Dアニメーション',   role:'アニメーション', client:'オリジナル', y:2026, dur:6,  src:'milu-v2.mp4',      poster:'milu-v2.jpg',      vimeo:'', wide:true},
-  {t:'Demons cafe DEMONICA',  type:'3D風アニメーション', role:'アニメーション', client:'オリジナル', y:2026, dur:5,  src:'demonica2-v2.mp4', poster:'demonica2-v2.jpg', vimeo:''},
+  {t:'Demons cafe DEMONICA',  type:'3D風アニメーション', role:'アニメーション', client:'オリジナル', y:2026, dur:18, src:'demonica-v2.mp4', xid:'2060335660792422706',  poster:'demonica-v2.jpg',  vimeo:''},
+  {t:'CREATION',              type:'2Dアニメーション',   role:'アニメーション', client:'オリジナル', y:2026, dur:8,  src:'creation-v2.mp4', xid:'2004430187673661920',  poster:'creation-v2.jpg',  vimeo:'', wide:true},
+  {t:'浮遊ガール',            type:'2Dアニメーション',   role:'アニメーション', client:'オリジナル', y:2026, dur:6,  src:'floating-v2.mp4', xid:'2038914306964877317',  poster:'floating-v2.jpg',  vimeo:''},
+  {t:'ミラクルキャット☆ミル', type:'2Dアニメーション',   role:'アニメーション', client:'オリジナル', y:2026, dur:6,  src:'milu-v2.mp4', xid:'2041840584814686262',      poster:'milu-v2.jpg',      vimeo:'', wide:true},
+  {t:'Demons cafe DEMONICA',  type:'3D風アニメーション', role:'アニメーション', client:'オリジナル', y:2026, dur:5,  src:'demonica2-v2.mp4', xid:'2053415121951863194', poster:'demonica2-v2.jpg', vimeo:''},
 ];
 const news = [
   {d:'2026.10.16', t:['TapTV Arena Peak Asia「Re:ROAD」','ベストIP賞 / 日本エリア賞 / 日本大会入選 / ARENA PICK 2026 RED受賞']},
@@ -985,6 +995,7 @@ const vimeoSrc = u => { const m=String(u||'').match(/vimeo\.com\/(?:video\/)?(\d
   return m ? `https://player.vimeo.com/video/${m[1]}?autoplay=1&title=0&byline=0&portrait=0&dnt=1${m[2]?`&h=${m[2]}`:''}` : ''; };
 const setIcon = on => { $('#picon').innerHTML = on ? '<path d="M2 1h3v10H2zM7 1h3v10H7z"/>' : '<path d="M2 1l9 5-9 5z"/>'; $('#ptoggle').setAttribute('aria-label',on?'一時停止':'再生'); };
 function openPlayer(w, vertical){
+  if(w.xid) return openXPost(w);
   const vsrc=w.full?'':w.yt?`https://www.youtube-nocookie.com/embed/${w.yt}?autoplay=1&rel=0&playsinline=1&modestbranding=1`:vimeoSrc(w.vimeo);
   player.classList.toggle('vertical',!!vertical); player.classList.toggle('vimeo',!!vsrc);
   pframe.innerHTML = w.full ? `<div class="screen"><video src="${w.full}"${w.poster?` poster="${w.poster}"`:''} playsinline webkit-playsinline preload="auto"></video></div>`
@@ -998,8 +1009,25 @@ function openPlayer(w, vertical){
   document.body.classList.add('p-open'); lockScroll(true); if(!pRaf) pRaf=requestAnimationFrame(pLoop);
   setTimeout(()=>$('#ptoggle').focus(),400);
 }
+/* Shorts: show the original post on X (its video plays inside the post). widgets.js is fetched the first time only. */
+let xLoad=null;
+const xWidgets=()=> xLoad || (xLoad=new Promise((res,rej)=>{ if(window.twttr&&twttr.widgets) return res(twttr);
+  const sc=document.createElement('script'); sc.src='https://platform.twitter.com/widgets.js'; sc.async=true; sc.charset='utf-8';
+  sc.onload=()=>{ const t=()=>window.twttr&&twttr.widgets?res(twttr):setTimeout(t,50); t(); }; sc.onerror=()=>{ xLoad=null; rej(); }; document.head.appendChild(sc); }));
+function openXPost(w){
+  const url=`https://x.com/DiDiDi0045/status/${w.xid}`;
+  player.classList.remove('vertical','vimeo'); player.classList.add('xpost');
+  pframe.innerHTML=`<div class="xwrap"><div class="xload">読み込み中…</div></div>`; pv=null;
+  $('#ptitle').textContent=w.t; $('#pmeta').innerHTML=metaHTML(w)+`<div><dt>POST</dt><dd><a href="${url}" target="_blank" rel="noopener">Xで見る ↗</a></dd></div>`;
+  document.body.classList.add('p-open'); lockScroll(true);
+  const box=pframe.querySelector('.xwrap');
+  const fail=()=>{ box.innerHTML=`<a class="xfall" href="${url}" target="_blank" rel="noopener"><img src="${w.poster}" alt=""><span>Xで動画を見る ↗</span></a>`; };
+  xWidgets().then(t=>t.widgets.createTweet(w.xid,box,{theme:'dark',dnt:true,conversation:'none',align:'center',lang:'ja'}))
+    .then(el=>{ const l=box.querySelector('.xload'); if(l) l.remove(); if(!el) fail(); }).catch(fail);
+  setTimeout(()=>$('.p-close').focus(),400);
+}
 function closePlayer(){ if(!document.body.classList.contains('p-open')) return;
-  document.body.classList.remove('p-open'); if(pv) pv.pause(); pv=null; lockScroll(false);
+  document.body.classList.remove('p-open'); if(pv) pv.pause(); pv=null; lockScroll(false); setTimeout(()=>player.classList.remove('xpost'),700);
   setTimeout(()=>{ if(!document.body.classList.contains('p-open')) pframe.innerHTML=''; },700); }
 let pRaf=0; const pLoop=()=>{ if(!document.body.classList.contains('p-open')){ pRaf=0; return; } if(pv&&pv.duration){ const p=pv.currentTime/pv.duration*100; $('#pfill').style.width=p+'%'; $('#pknob').style.left=p+'%'; $('#ptc').textContent=`${mmss(pv.currentTime)} / ${mmss(pv.duration)}`; } pRaf=requestAnimationFrame(pLoop); };
 $('#ptoggle').onclick=()=>{ if(!pv) return; if(pv.paused){ pv.play().catch(()=>{}); setIcon(true); } else { pv.pause(); setIcon(false); } };
