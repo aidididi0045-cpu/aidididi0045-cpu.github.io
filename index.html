@@ -98,6 +98,9 @@ body.at-fv::before{background:var(--white)}
 /* ---------- Screens & line-drawn frames ---------- */
 .screen{position:absolute;inset:0;background:var(--gray);overflow:hidden}
 .screen video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+/* never show the phone's own big play icon over our silent clips (iOS shows it when a clip is paused or waiting) */
+video::-webkit-media-controls-start-playback-button{display:none!important;-webkit-appearance:none}
+video::-webkit-media-controls{display:none!important}
 /* placeholder footage (news thumbnails until real images arrive) */
 .frame{position:relative;display:block;border-radius:var(--r);overflow:hidden;isolation:isolate}
 .frame video,.frame .screen{-webkit-backface-visibility:hidden;backface-visibility:hidden}
@@ -1053,7 +1056,10 @@ function exitShared(){
   try{ history.replaceState(null,'',location.pathname+location.search); }catch(err){}
   document.body.classList.remove('shared'); $('#sharedNote').hidden=true; applyFilter({k:'all'});
   $$('.card').forEach(c=>{ c.hidden=false; c.classList.remove('out'); });
-  lenis&&lenis.resize(); window.ScrollTrigger&&ScrollTrigger.refresh(); return true;
+  lenis&&lenis.resize(); window.ScrollTrigger&&ScrollTrigger.refresh();
+  // the showreel never started while it was hidden, so start it now (otherwise phones show their own paused-video play icon)
+  reelLive=false; setReelLive(true);
+  return true;
 }
 $('#showAll').addEventListener('click',e=>{ e.preventDefault(); e.stopPropagation(); exitShared(); scrollTo(0,0); lenis&&lenis.scrollTo(0,{immediate:true}); },true);
 
