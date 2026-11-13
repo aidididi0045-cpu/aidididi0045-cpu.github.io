@@ -135,11 +135,6 @@ main{position:relative;z-index:2}
 .cut{position:absolute;inset:0;visibility:hidden}
 .cut.on{visibility:visible}
 .reel{-webkit-mask:linear-gradient(#000 0 0) 0 0/100% calc(100% - 13px) no-repeat,var(--wave) 0 100%/44px 14px repeat-x;mask:linear-gradient(#000 0 0) 0 0/100% calc(100% - 13px) no-repeat,var(--wave) 0 100%/44px 14px repeat-x}
-.reel-play{position:absolute;left:50%;top:50%;width:150px;height:150px;margin:-75px 0 0 -75px;z-index:7;border-radius:50%;background:var(--mark);border:var(--pen) solid var(--ink);display:grid;place-items:center;transition:transform .5s var(--ease)}
-.reel-play:hover{transform:scale(1.1)}
-.reel-play .rt{position:absolute;inset:6px;width:calc(100% - 12px);height:calc(100% - 12px);animation:spin 14s linear infinite}
-.reel-play .rt text{font-family:var(--f-en);font-weight:900;font-size:11.5px;letter-spacing:3.2px;fill:var(--ink)}
-.reel-play .tri{width:34px;height:34px;fill:var(--ink);margin-left:6px}
 @media (max-width:760px){
   .hero-top{padding-left:28px;padding-right:28px;padding-bottom:28px;row-gap:16px}
   .roles{padding-bottom:0}
@@ -151,8 +146,6 @@ main{position:relative;z-index:2}
   .hero h1{font-size:calc((100vw - 56px) / 7.6)}
 }
 @media (max-width:640px){
-  .reel-play{width:110px;height:110px;margin:-55px 0 0 -55px}
-  .reel-play .rt text{font-size:10px;letter-spacing:2px}
 }
 /* ---------- Pick up (endless) ---------- */
 .pickup{padding-block:120px 40px;overflow:hidden}
@@ -350,7 +343,7 @@ main{position:relative;z-index:2}
    ============================================================ */
 :root{--g-blur:blur(18px) saturate(180%)}
 main{background:var(--white)}
-.fav-pop,.pill,.copy,.sns-btn,.circle-arw,.reel-play,.tabs,.card .frame::after,.ctrl button,.p-close,.menu-btn,.shared-note,.share-box{background:var(--g-fill);-webkit-backdrop-filter:var(--g-blur);backdrop-filter:var(--g-blur);border:1px solid var(--g-edge);box-shadow:var(--g-shadow)}
+.fav-pop,.pill,.copy,.sns-btn,.circle-arw,.tabs,.card .frame::after,.ctrl button,.p-close,.menu-btn,.shared-note,.share-box{background:var(--g-fill);-webkit-backdrop-filter:var(--g-blur);backdrop-filter:var(--g-blur);border:1px solid var(--g-edge);box-shadow:var(--g-shadow)}
 /* header: the bar and its wavy edge are ONE glass shape — a single blurred layer, masked to "rectangle + wave".
    Over the dark first view it is clear glass with light text and no line; below it, yellow glass with the navy wave line. */
 body::before,body.at-fv::before{background:transparent}
@@ -389,10 +382,6 @@ main{padding-top:0}
 .news-list a:hover .circle-arw{background:var(--ink)}
 .news-list a::after{background:linear-gradient(90deg,rgba(255,255,255,.55),rgba(255,255,255,.15));-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
 /* the reel's play button: a lens of clear glass over the film */
-.reel-play{--g-fill:radial-gradient(120% 120% at 30% 20%,rgba(255,255,255,.55),rgba(255,255,255,.10) 60%,rgba(255,255,255,.22));border-width:1.5px;color:#fff}
-.reel-play .rt text,.reel-play .tri{fill:#fff}
-.reel-play .rt text{paint-order:stroke;stroke:rgba(22,9,62,.25);stroke-width:2px}
-.reel-play::after{content:"";position:absolute;inset:8% 18% 55% 18%;border-radius:50%;background:linear-gradient(rgba(255,255,255,.65),rgba(255,255,255,0));pointer-events:none}
 /* work tabs: a glass segmented control with a sliding lens */
 .tabs{display:inline-flex;max-width:100%;gap:0;padding:6px;border-radius:999px;background:none!important;border:0!important;box-shadow:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
 .tabs button{padding:6px 16px;font-size:15px;position:relative;z-index:1}
@@ -541,10 +530,6 @@ main{padding-top:0}
     </div>
     <div class="reel" id="reelFrame">
       <div class="cuts" id="cuts"></div>
-      <button class="reel-play" id="reelPlay" aria-label="ショーリールを再生">
-        <svg class="rt" viewBox="0 0 100 100" aria-hidden="true"><defs><path id="rc" d="M50 50m-38 0a38 38 0 1 1 76 0a38 38 0 1 1-76 0"/></defs><text><textPath href="#rc">PLAY REEL • PLAY REEL • PLAY REEL • </textPath></text></svg>
-        <svg class="tri" viewBox="0 0 10 12" aria-hidden="true"><path d="M0 0l10 6-10 6z"/></svg>
-      </button>
     </div>
   </section>
 
@@ -989,7 +974,6 @@ scrub.addEventListener('pointerdown',e=>{ scrub.setPointerCapture(e.pointerId); 
 scrub.addEventListener('pointerup',()=>scrub.onpointermove=null);
 scrub.addEventListener('keydown',e=>{ if(!pv) return; if(e.key==='ArrowRight') pv.currentTime=Math.min(pv.duration||0,pv.currentTime+5); if(e.key==='ArrowLeft') pv.currentTime=Math.max(0,pv.currentTime-5); });
 $('#pclose').onclick=closePlayer; $('#pbg').onclick=closePlayer;
-$('#reelPlay').onclick=()=>{ const wi=+cuts[cutIdx].dataset.wi; openPlayer(wi<0?REEL:works[wi]); };   // opens the film currently on the reel
 document.addEventListener('click',e=>{
   if(e.target.closest('.fav')) return;
   const sh=e.target.closest('[data-s]');
@@ -1163,7 +1147,6 @@ function leave(){
     .fromTo(rf,{yPercent:55,scaleX:.42,scaleY:.3,transformOrigin:'50% 100%'},{keyframes:[
         {yPercent:-2,scaleX:1.05,scaleY:1.05,duration:.38,ease:'expo.out'},
         {yPercent:0,scaleX:1,scaleY:1,duration:.55,ease:'power3.out'}],immediateRender:true},'-=.75')
-    .from('#reelPlay',{scale:0,rotate:-180,duration:.7,ease:'back.out(1.8)'},'-=.35')
     .add(()=>startCar());
 }
 
