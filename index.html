@@ -698,12 +698,12 @@ const works = [
 const pickIdx = [0,1,2,3,4];            // works shown in PICK UP (by index)
 // wide:true = 横型のまま帯に並ぶ
 const shorts = [
-  {t:'Demons cafe DEMONICA',  type:'3D風アニメーション', role:'アニメーション', client:'オリジナル', y:2026, dur:18, src:'demonica-v2.mp4', xid:'2060335660792422706', full:'https://video.twimg.com/amplify_video/2060334363792068608/vid/avc1/1080x1920/GKp4nuH-1q_Vij89.mp4',  poster:'demonica-v2.jpg',  vimeo:''},
-  {t:'CREATION',              type:'2Dアニメーション',   role:'アニメーション', client:'オリジナル', y:2026, dur:8,  src:'creation-v2.mp4', xid:'2004430187673661920', full:'https://video.twimg.com/amplify_video/2004429751239528448/vid/avc1/1280x720/3HYakd_n4vgUg21p.mp4?tag=14',  poster:'creation-v2.jpg',  vimeo:'', wide:true},
-  {t:'浮遊ガール',            type:'2Dアニメーション',   role:'アニメーション', client:'オリジナル', y:2026, dur:6,  src:'floating-v2.mp4', xid:'2038914306964877317', full:'https://video.twimg.com/amplify_video/2038912022709145600/vid/avc1/1080x1700/-jzBYolWkZgl0YxB.mp4',  poster:'floating-v2.jpg',  vimeo:''},
-  {t:'ミラクルキャット☆ミル', type:'2Dアニメーション',   role:'アニメーション', client:'オリジナル', y:2026, dur:6,  src:'milu-v2.mp4', xid:'2041840584814686262', full:'https://video.twimg.com/amplify_video/2041840153308884993/vid/avc1/1920x1080/afEYf8_XM78UiNZr.mp4',      poster:'milu-v2.jpg',      vimeo:'', wide:true},
-  {t:'Demons cafe DEMONICA',  type:'3D風アニメーション', role:'アニメーション', client:'オリジナル', y:2026, dur:5,  src:'demonica2-v2.mp4', xid:'2053415121951863194', full:'https://video.twimg.com/amplify_video/2053404583360372736/vid/avc1/720x1280/-2Qw9CYYDEA77Xfu.mp4', poster:'demonica2-v2.jpg', vimeo:''},
-  {t:'気まぐれ電助',          type:'3D風アニメーション', role:'アニメーション', client:'オリジナル', y:2026, dur:17, src:'denske-v2.mp4',    poster:'denske-v2.jpg',    vimeo:'', wide:true, xid:'2091818319297089704', full:'https://video.twimg.com/amplify_video/2091817246998106112/vid/avc1/1920x1080/l7NoR_FOAqCYQZ_c.mp4'},
+  {t:'Demons cafe DEMONICA',  type:'3D風アニメーション', role:'アニメーション', client:'オリジナル', y:2026, dur:18, src:'demonica-v2.mp4', xid:'2060335660792422706',  poster:'demonica-v2.jpg',  vimeo:''},
+  {t:'CREATION',              type:'2Dアニメーション',   role:'アニメーション', client:'オリジナル', y:2026, dur:8,  src:'creation-v2.mp4', xid:'2004430187673661920',  poster:'creation-v2.jpg',  vimeo:'', wide:true},
+  {t:'浮遊ガール',            type:'2Dアニメーション',   role:'アニメーション', client:'オリジナル', y:2026, dur:6,  src:'floating-v2.mp4', xid:'2038914306964877317',  poster:'floating-v2.jpg',  vimeo:''},
+  {t:'ミラクルキャット☆ミル', type:'2Dアニメーション',   role:'アニメーション', client:'オリジナル', y:2026, dur:6,  src:'milu-v2.mp4', xid:'2041840584814686262',      poster:'milu-v2.jpg',      vimeo:'', wide:true},
+  {t:'Demons cafe DEMONICA',  type:'3D風アニメーション', role:'アニメーション', client:'オリジナル', y:2026, dur:5,  src:'demonica2-v2.mp4', xid:'2053415121951863194', poster:'demonica2-v2.jpg', vimeo:''},
+  {t:'気まぐれ電助',          type:'3D風アニメーション', role:'アニメーション', client:'オリジナル', y:2026, dur:17, src:'denske-v2.mp4',    poster:'denske-v2.jpg',    vimeo:'', wide:true, xid:'2091818319297089704'},
 ];
 const news = [
   {d:'2026.10.16', t:['TapTV Arena Peak Asia「Re:ROAD」','ベストIP賞 / 日本エリア賞 / 日本大会入選 / ARENA PICK 2026 RED受賞']},
@@ -996,6 +996,7 @@ const vimeoSrc = u => { const m=String(u||'').match(/vimeo\.com\/(?:video\/)?(\d
   return m ? `https://player.vimeo.com/video/${m[1]}?autoplay=1&title=0&byline=0&portrait=0&dnt=1${m[2]?`&h=${m[2]}`:''}` : ''; };
 const setIcon = on => { $('#picon').innerHTML = on ? '<path d="M2 1h3v10H2zM7 1h3v10H7z"/>' : '<path d="M2 1l9 5-9 5z"/>'; $('#ptoggle').setAttribute('aria-label',on?'一時停止':'再生'); };
 function openPlayer(w, vertical){
+  if(w.xid) return openXPost(w);
   const vsrc=w.full?'':w.yt?`https://www.youtube-nocookie.com/embed/${w.yt}?autoplay=1&rel=0&playsinline=1&modestbranding=1`:vimeoSrc(w.vimeo);
   player.classList.toggle('vertical',!!vertical); player.classList.toggle('vimeo',!!vsrc);
   pframe.innerHTML = w.full ? `<div class="screen"><video src="${w.full}"${w.poster?` poster="${w.poster}"`:''} playsinline webkit-playsinline preload="auto"></video></div>`
