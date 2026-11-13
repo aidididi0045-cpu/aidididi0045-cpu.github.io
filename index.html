@@ -1196,13 +1196,11 @@ gsap.from('.shorts',{clipPath:'inset(50% 0 50% 0)',duration:1.2,ease:'power4.inO
 gsap.fromTo('#profPanel',{clipPath:'inset(14% 10% 14% 10% round 60px)'},{clipPath:'inset(0% 0% 0% 0% round 28px)',ease:'none',scrollTrigger:{trigger:'#profPanel',start:'top 95%',end:'top 25%',scrub:.6}});
 gsap.from('#profCard',{yPercent:40,scale:.85,ease:'none',scrollTrigger:{trigger:'#profPanel',start:'top 90%',end:'center 55%',scrub:.6}});
 gsap.to('#bigword',{xPercent:-30,ease:'none',scrollTrigger:{trigger:'#profPanel',start:'top bottom',end:'bottom top',scrub:true}});
-/* tied to the scroll itself: spins in as it rises from the bottom of the screen, rests in the middle, and spins on as it leaves at the top.
-   Scroll faster and it turns faster; stop and it stops. */
+/* tied to the scroll itself: spins in as it rises from the bottom of the screen and settles by the middle.
+   Scroll faster and it turns faster; stop and it stops. Once past the middle it stays still. */
 const scrollSpin=(sel,from)=>{ const el=$(sel); if(!el) return;
-  gsap.timeline({scrollTrigger:{trigger:el,start:'top bottom',end:'bottom top',scrub:.5}})
-    .fromTo(el,{rotate:from.rotate,scale:from.scale,opacity:from.opacity??1},{rotate:0,scale:1,opacity:1,ease:'power2.out',duration:.42})
-    .to(el,{rotate:0,scale:1,duration:.2})
-    .to(el,{rotate:-from.rotate*.6,scale:.82,ease:'power1.in',duration:.38}); };
+  gsap.fromTo(el,{rotate:from.rotate,scale:from.scale,opacity:from.opacity??1},{rotate:0,scale:1,opacity:1,ease:'power2.out',
+    scrollTrigger:{trigger:el,start:'top bottom',end:'center 55%',scrub:.5}}); };
 scrollSpin('.avatar',{rotate:-200,scale:.2});
 
 // News rows
