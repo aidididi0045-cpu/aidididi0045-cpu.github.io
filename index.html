@@ -703,6 +703,7 @@ const shorts = [
   {t:'浮遊ガール',            type:'2Dアニメーション',   role:'アニメーション', client:'オリジナル', y:2026, dur:6,  src:'floating-v2.mp4', xid:'2038914306964877317',  poster:'floating-v2.jpg',  vimeo:''},
   {t:'ミラクルキャット☆ミル', type:'2Dアニメーション',   role:'アニメーション', client:'オリジナル', y:2026, dur:6,  src:'milu-v2.mp4', xid:'2041840584814686262',      poster:'milu-v2.jpg',      vimeo:'', wide:true},
   {t:'Demons cafe DEMONICA',  type:'3D風アニメーション', role:'アニメーション', client:'オリジナル', y:2026, dur:5,  src:'demonica2-v2.mp4', xid:'2053415121951863194', poster:'demonica2-v2.jpg', vimeo:''},
+  {t:'気まぐれ電助',          type:'3D風アニメーション', role:'アニメーション', client:'オリジナル', y:2026, dur:17, src:'denske-v2.mp4',    poster:'denske-v2.jpg',    vimeo:'', wide:true, xid:'2091818319297089704'},
 ];
 const news = [
   {d:'2026.10.16', t:['TapTV Arena Peak Asia「Re:ROAD」','ベストIP賞 / 日本エリア賞 / 日本大会入選 / ARENA PICK 2026 RED受賞']},
@@ -1022,7 +1023,9 @@ function openXPost(w){
   document.body.classList.add('p-open'); lockScroll(true);
   const box=pframe.querySelector('.xwrap');
   const fail=()=>{ box.innerHTML=`<a class="xfall" href="${url}" target="_blank" rel="noopener"><img src="${w.poster}" alt=""><span>Xで動画を見る ↗</span></a>`; };
-  xWidgets().then(t=>t.widgets.createTweet(w.xid,box,{theme:'dark',dnt:true,conversation:'none',align:'center',lang:'ja'}))
+  // video-only embed (no post text, likes or reposts); falls back to the full post if X can't give the video player
+  xWidgets().then(t=>(t.widgets.createVideo? t.widgets.createVideo(w.xid,box,{theme:'dark',dnt:true,lang:'ja'}) : Promise.resolve(null))
+      .then(el=> el || t.widgets.createTweet(w.xid,box,{theme:'dark',dnt:true,conversation:'none',align:'center',lang:'ja'})))
     .then(el=>{ const l=box.querySelector('.xload'); if(l) l.remove(); if(!el) fail(); }).catch(fail);
   setTimeout(()=>$('.p-close').focus(),400);
 }
